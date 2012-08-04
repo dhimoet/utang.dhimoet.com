@@ -1,4 +1,7 @@
 */config/development
+*/config/config.php
+*/config/database.php
+*/system/libraries/Email.php
 */logs/log-*.php
 */logs/!index.html
 */cache/*
