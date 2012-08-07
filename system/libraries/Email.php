@@ -32,14 +32,14 @@ class CI_Email {
 	var	$mailpath		= "/usr/sbin/sendmail";	// Sendmail path
 	var	$protocol		= "smtp";	// mail/sendmail/smtp
 	var	$smtp_host		= "smtp.googlemail.com";		// SMTP Server.  Example: mail.earthlink.net
-	var	$smtp_user		= "username@email.com";		// SMTP Username
-	var	$smtp_pass		= "password";		// SMTP Password
+	var	$smtp_user		= "system@dhimoet.com";		// SMTP Username
+	var	$smtp_pass		= "Sys123tem123message";		// SMTP Password
 	var	$smtp_port		= "465";		// SMTP Port
 	var	$smtp_timeout	= 7;		// SMTP Timeout in seconds
 	var	$smtp_crypto	= "ssl";		// SMTP Encryption. Can be null, tls or ssl.
 	var	$wordwrap		= TRUE;		// TRUE/FALSE  Turns word-wrap on/off
 	var	$wrapchars		= "76";		// Number of characters to wrap at.
-	var	$mailtype		= "html";	// text/html  Defines email formatting
+	var	$mailtype		= "text";	// text/html  Defines email formatting
 	var	$charset		= "utf-8";	// Default char set: iso-8859-1 or us-ascii
 	var	$multipart		= "mixed";	// "mixed" (in the body) or "related" (separate)
 	var $alt_message	= '';		// Alternative message for HTML emails
@@ -2090,3 +2090,4 @@ class CI_Email {
 
 /* End of file Email.php */
 /* Location: ./system/libraries/Email.php */
+
