@@ -1,7 +1,7 @@
-$(document).ready(function() {
+$(document).delegate("", "pageinit", function() {
 	
 	/*** form validations ***/
-	$('form[name="login"]').validationEngine('attach', {promptPosition : "bottomLeft", scroll: true});
-	$('form[name="signup"]').validationEngine('attach', {promptPosition : "bottomLeft", scroll: true});
+	$('form[name="login"]').validationEngine('attach', {promptPosition : "bottomLeft", scroll: false});
+	$('form[name="signup"]').validationEngine('attach', {promptPosition : "bottomLeft", scroll: false});
 	
 });

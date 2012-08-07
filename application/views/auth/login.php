@@ -6,8 +6,16 @@
 	</div>
   
 	<div data-role='content'>
-  
-		<div class="bottom_50">
+		
+		<div class="bottom_40">
+			
+			<a href='/fb/login/' data-role='button' data-theme='b' data-ajax="false">Login With Facebook</a>
+			
+		</div>
+	
+		<hr />
+		
+		<div class="top_40">
 			
 			<form name='login' action='/auth/login' method='post' data-ajax='false'>
 	 
@@ -29,16 +37,9 @@
 			
 		</div>
 	
-		<hr />
-		
-		<div class="top_50">
-			
-			<a href='/fb/login/' data-role='button' data-theme='b' data-ajax="false">Login With Facebook</a>
-			
-		</div>
-	
 	</div><!-- content container -->
   
 	<div data-role='header' style='position:fixed; bottom:0px;'></div>
 
 </div><!-- index container -->
+
