@@ -1,3 +1,7 @@
-.margin_50_0 {
-	margin: 50px 0px;
+.top_50 {
+	margin-top: 50px;
+}
+
+.bottom_50 {
+	margin-bottom: 50px;
 }

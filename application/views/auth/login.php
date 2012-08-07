@@ -1,4 +1,4 @@
-<div data-role='page' data-title='login'>
+<div data-role='page' data-title='login' id='login'>
   
 	<div data-theme='b' data-role='header' data-position='fixed'>
 		<h3>Login</h3>
@@ -7,18 +7,18 @@
   
 	<div data-role='content'>
   
-		<div class="margin_50_0">
+		<div class="bottom_50">
 			
 			<form name='login' action='/auth/login' method='post' data-ajax='false'>
 	 
 				<p>
 					<label for="identity">Email:</label>
-					<input type='text' name='identity' value='' />
+					<input type='text' name='identity' value='' class="validate[required,custom[email]]"/>
 				</p>
 			  
 				<p>
 					<label for="password">Password:</label>
-					<input type='password' name='password' value='' />
+					<input type='password' name='password' value='' class="validate[required]"/>
 				</p>
 			  
 				<label><input type="checkbox" name="remember" /> Remember Me </label>
@@ -31,9 +31,9 @@
 	
 		<hr />
 		
-		<div class="margin_50_0">
+		<div class="top_50">
 			
-			<a href='/utang/signup' data-role='button' data-theme='b'>Login Using Facebook</a>
+			<a href='/fb/login/' data-role='button' data-theme='b' data-ajax="false">Login With Facebook</a>
 			
 		</div>
 	

@@ -1,46 +1,40 @@
-<h1>Create User</h1>
-<p>Please enter the users information below.</p>
+<div data-role='page' data-title='signup' id='signup'>
+  
+	<div data-theme='b' data-role='header' data-position='fixed'>
+		<h3>Sign Up</h3>
+		<a data-rel="back" data-role='button' data-icon='back'>Back</a>
+	</div>
+  
+	<div data-role='content'>
+  
+		<form name='signup' action='/auth/create_user' method='post'>
+ 
+			<p>
+				<label for="first_name">First Name:</label>
+				<input type='text' name='first_name' value='' class="validate[required]"/>
+			</p>
+      
+			<p>
+				<label for="last_name">Last Name:</label>
+				<input type='text' name='last_name' value='' class="validate[required]"/>
+			</p>
+      
+			<p>
+				<label for="email">Email:</label>
+				<input type='text' name='email' value='' class="validate[required,custom[email]]"/>
+			</p>
+      
+			<p>
+				<label for="password">Password:</label>
+				<input type='password' name='password' value='' class="validate[required]"/>
+			</p>
+          
+			<input type='submit' name='login' value='Sign Up!' data-theme='b'/>
+      
+		</form>
+    
+	</div><!-- content container -->
+  
+	<div data-role='footer' style='position:fixed; z-index: 999; bottom:0px;'></div>
 
-<div id="infoMessage"><?php echo $message;?></div>
-
-<?php echo form_open("auth/create_user");?>
-
-      <p>
-            First Name: <br />
-            <?php echo form_input($first_name);?>
-      </p>
-
-      <p>
-            Last Name: <br />
-            <?php echo form_input($last_name);?>
-      </p>
-
-      <p>
-            Company Name: <br />
-            <?php echo form_input($company);?>
-      </p>
-
-      <p>
-            Email: <br />
-            <?php echo form_input($email);?>
-      </p>
-
-      <p>
-            Phone: <br />
-            <?php echo form_input($phone1);?>-<?php echo form_input($phone2);?>-<?php echo form_input($phone3);?>
-      </p>
-
-      <p>
-            Password: <br />
-            <?php echo form_input($password);?>
-      </p>
-
-      <p>
-            Confirm Password: <br />
-            <?php echo form_input($password_confirm);?>
-      </p>
-
-
-      <p><?php echo form_submit('submit', 'Create User');?></p>
-
-<?php echo form_close();?>
+</div><!-- index container -->

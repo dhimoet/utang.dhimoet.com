@@ -25,7 +25,7 @@ class Auth extends CI_Controller {
 								  "/static/js/jquery.validationEngine-en.js",
 								  "/static/js/underscore-min.js",
 								  "/static/js/backbone-min.js",
-								  "/static/js/script.js",
+								  "/static/js/auth.js",
 								  "/static/jquery.mobile-1.1.1/jquery.mobile-1.1.1.min.js");
 	}
 
@@ -388,7 +388,7 @@ class Auth extends CI_Controller {
 	{
 		$this->data['title'] = "Create User";
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		if ($this->ion_auth->logged_in() && !$this->ion_auth->is_admin())
 		{
 			redirect('auth', 'refresh');
 		}
@@ -484,8 +484,10 @@ class Auth extends CI_Controller {
 				'type'  => 'password',
 				'value' => $this->form_validation->set_value('password_confirm'),
 			);
-
+			
+			$this->load->view('templates/base_header', $this->head);
 			$this->load->view('auth/create_user', $this->data);
+			$this->load->view('templates/base_footer');
 		}
 	}
 
