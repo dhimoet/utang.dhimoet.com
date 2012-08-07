@@ -9,8 +9,8 @@ class Fb extends CI_Controller {
 		/*** facebook init ***/
 		require 'facebook-php-sdk/src/facebook.php';
 		$facebook = new Facebook(array(
-			'appId'  => '394799733886593',
-			'secret' => 'aec9d10be18db7c1cbfea132d6f76929',
+			'appId'  => '128125447331739',
+			'secret' => '2b9cd0e50286b80cd33d52a03a7ab8db',
 		));
 		// Get User ID
 		$user = $facebook->getUser();
