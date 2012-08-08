@@ -15,7 +15,7 @@
 	
 		<hr />
 		
-		<div class="top_40">
+		<div>
 			
 			<form name='login' action='/auth/login' method='post' data-ajax='false'>
 	 

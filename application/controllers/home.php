@@ -38,7 +38,6 @@ class Home extends CI_Controller {
 	}
 
 	public function home() {
-		//$this->utang_model->isRegisteredUser('hahaha');
 		$this->load->view('templates/base_header', $this->head);
 		$this->load->view('home/index');
 		$this->load->view('templates/base_footer');

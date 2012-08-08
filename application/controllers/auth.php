@@ -28,7 +28,7 @@ class Auth extends CI_Controller {
 			"/static/js/jquery.validationEngine-en.js",
 			"/static/js/underscore-min.js",
 			"/static/js/backbone-min.js",
-			"/static/js/script.js",
+			"/static/js/auth.js",
 			"/static/jquery.mobile-1.1.1/jquery.mobile-1.1.1.min.js"
 		);
 	}

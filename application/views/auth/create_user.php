@@ -8,31 +8,33 @@
 	<div data-role='content'>
   
 		<form name='signup' action='/auth/create_user' method='post' data-ajax='false'>
- 
-			<p>
-				<label for="first_name">First Name:</label>
-				<input type='text' name='first_name' value='' class="validate[required]"/>
-			</p>
-      
-			<p>
-				<label for="last_name">Last Name:</label>
-				<input type='text' name='last_name' value='' class="validate[required]"/>
-			</p>
+
+			<div class="ui-grid-a">
+				<p class="ui-block-a">
+					<label for="first_name">First Name:</label>
+					<input type='text' name='first_name' value='' class="validate[required]"/>
+				</p>
+				<p class="ui-block-b">
+					<label for="last_name">Last Name:</label>
+					<input type='text' name='last_name' value='' class="validate[required]"/>
+				</p>
+			</div>
       
 			<p>
 				<label for="email">Email:</label>
 				<input type='text' name='email' value='' class="validate[required,custom[email]]"/>
 			</p>
       
-			<p>
-				<label for="password">Password:</label>
-				<input type='password' name='password' value='' class="validate[required]"/>
-			</p>
-			
-			<p>
-				<label for="password_confirm">Password:</label>
-				<input type='password' name='password_confirm' value='' class="validate[required]"/>
-			</p>
+			<div class="ui-grid-a">
+				<p class="ui-block-a">
+					<label for="password">Password:</label>
+					<input type='password' name='password' value='' class="validate[required]"/>
+				</p>
+				<p class="ui-block-b">
+					<label for="password_confirm">Confirm Password:</label>
+					<input type='password' name='password_confirm' value='' class="validate[required]"/>
+				</p>
+			</div>
           
 			<input type='submit' name='login' value='Sign Up!' data-theme='b'/>
       
