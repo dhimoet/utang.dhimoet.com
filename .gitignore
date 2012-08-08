@@ -1,6 +1,7 @@
 */config/development
 */config/config.php
 */config/database.php
+*/controllers/fb.php
 */system/libraries/Email.php
 */logs/log-*.php
 */logs/!index.html
