@@ -17,16 +17,20 @@ class Auth extends CI_Controller {
 		$title = ucwords(str_replace('_', ' ',$this->router->fetch_method()));
 		$this->head['doctype'] = doctype('html5');
 		$this->head['title'] = "UtangApp | " . $title;
-		$this->head['css'] = array("/static/css/style.css",
-								   "/static/css/validationEngine.jquery.css",
-								   "/static/jquery.mobile-1.1.1/jquery.mobile-1.1.1.min.css");
-		$this->head['js'] = array("/static/js/jquery-1.7.2.min.js",
-								  "/static/js/jquery.validationEngine.js",
-								  "/static/js/jquery.validationEngine-en.js",
-								  "/static/js/underscore-min.js",
-								  "/static/js/backbone-min.js",
-								  "/static/js/auth.js",
-								  "/static/jquery.mobile-1.1.1/jquery.mobile-1.1.1.min.js");
+		$this->head['css'] = array(
+			"/static/css/style.css",
+			"/static/css/validationEngine.jquery.css",
+			"/static/jquery.mobile-1.1.1/jquery.mobile-1.1.1.min.css"
+		);
+		$this->head['js'] = array(
+			"/static/js/jquery-1.7.2.min.js",
+			"/static/js/jquery.validationEngine.js",
+			"/static/js/jquery.validationEngine-en.js",
+			"/static/js/underscore-min.js",
+			"/static/js/backbone-min.js",
+			"/static/js/script.js",
+			"/static/jquery.mobile-1.1.1/jquery.mobile-1.1.1.min.js"
+		);
 	}
 
 	//redirect if needed, otherwise display the user list
