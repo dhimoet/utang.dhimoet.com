@@ -8,18 +8,17 @@ class Fb extends CI_Controller {
 		
 		/*** facebook init ***/
 		require 'facebook-php-sdk/src/facebook.php';
-		$facebook = new Facebook(array(
-			'appId'  => '',
-			'secret' => '',
+		$this->facebook = new Facebook(array(
+			'appId'  => '', // fill this
+			'secret' => '', // fill this
 		));
 		// Get User ID
-		$user = $facebook->getUser();
-		$this->user = $user;
-		echo $user;
+		$this->user = $this->facebook->getUser();
+		$user = $this->user;
 		if ($user) {
 			try {
 				// Proceed knowing you have a logged in user who's authenticated.
-				$user_profile = $facebook->api('/me');
+				$this->user_profile = $this->facebook->api('/me');
 			} 
 			catch (FacebookApiException $e) {
 				error_log($e);
@@ -27,9 +26,10 @@ class Fb extends CI_Controller {
 			}
 		}
 		if ($user) {
-			$this->logoutUrl = $facebook->getLogoutUrl();
-		} else {
-			$this->loginUrl = $facebook->getLoginUrl();
+			$this->logoutUrl = $this->facebook->getLogoutUrl();
+		} 
+		else {
+			$this->loginUrl = $this->facebook->getLoginUrl();
 		}
 		
 		/*** html page init ***/
@@ -55,11 +55,43 @@ class Fb extends CI_Controller {
 	
 	public function login()
 	{
-		if(!$this->user) {
-			redirect($this->loginUrl);
+		if($this->user) {
+			/*** check database for the user ***/
+			$email = $this->user_profile['id'] . '@facebook.com';
+			$user = array(
+				'first_name' => $this->user_profile['first_name'],
+				'last_name' => $this->user_profile['last_name'],
+				'email' => $email,
+				'password' => '', // fill this
+			);
+			
+			/*** create a new account if the user does not exist ***/
+			if(!$this->utang_model->is_registered_user($email)) {
+				$this->utang_model->fb_create_user($user);
+			}
+			
+			/*** log in the user ***/
+			$this->utang_model->fb_login($user);
+			
+			/*** redirect to homepage ***/
+			redirect($this->config->item('base_url'), 'refresh');
 		}
 		else {
-			echo 1;
+			/*** log in user to facebook ***/
+			redirect($this->loginUrl);
+		}
+	}
+	
+	public function logout()
+	{
+		// clear cookies
+		$this->facebook->destroySession();
+		// logout user
+		if($this->user) {
+			redirect($this->logoutUrl);
+		}
+		else {
+			redirect('auth/login', 'refresh');
 		}
 	}
 }
