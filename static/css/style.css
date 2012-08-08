@@ -1,7 +1,32 @@
+.top_20 {
+	margin-top: 20px;
+}
+
 .top_40 {
 	margin-top: 40px;
 }
 
+.bottom_20 {
+	margin-bottom: 20px;
+}
+
 .bottom_40 {
 	margin-bottom: 40px;
+}
+
+.friend_name {
+
+}
+
+.amount_owed {
+
+}
+
+.amount_owned {
+	color: green;
+}
+
+.timestamp_1 {
+	font-style: italic;
+	font-weight: normal;
 }

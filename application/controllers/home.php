@@ -14,9 +14,9 @@ class Home extends CI_Controller {
 		}
 		
 		/*** construct html page ***/
-		$title = ucwords(str_replace('_', ' ',$this->router->fetch_method()));
+		$title = ucwords(str_replace('_', ' ',$this->router->fetch_class()));
 		$this->head['doctype'] = doctype('html5');
-		$this->head['title'] = "UtangApp | " . $title;
+		$this->head['title'] = $title;
 		$this->head['css'] = array(
 			"/static/css/style.css",
 			"/static/css/validationEngine.jquery.css",
@@ -34,10 +34,6 @@ class Home extends CI_Controller {
 	}
 	
 	public function index() {
-		$this->home();
-	}
-
-	public function home() {
 		$this->load->view('templates/base_header', $this->head);
 		$this->load->view('home/index');
 		$this->load->view('templates/base_footer');
