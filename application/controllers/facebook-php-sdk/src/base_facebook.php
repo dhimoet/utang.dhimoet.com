@@ -344,6 +344,49 @@ abstract class BaseFacebook
   }
 
   /**
+   * Extend an access token, while removing the short-lived token that might
+   * have been generated via client-side flow. Thanks to http://bit.ly/b0Pt0H
+   * for the workaround.
+   */
+  public function setExtendedAccessToken() {
+    try {
+      // need to circumvent json_decode by calling _oauthRequest
+      // directly, since response isn't JSON format.
+      $access_token_response = $this->_oauthRequest(
+        $this->getUrl('graph', '/oauth/access_token'),
+        $params = array(
+          'client_id' => $this->getAppId(),
+          'client_secret' => $this->getAppSecret(),
+          'grant_type' => 'fb_exchange_token',
+          'fb_exchange_token' => $this->getAccessToken(),
+        )
+      );
+    }
+    catch (FacebookApiException $e) {
+      // most likely that user very recently revoked authorization.
+      // In any event, we don't have an access token, so say so.
+      return false;
+    }
+  
+    if (empty($access_token_response)) {
+      return false;
+    }
+      
+    $response_params = array();
+    parse_str($access_token_response, $response_params);
+    
+    if (!isset($response_params['access_token'])) {
+      return false;
+    }
+    
+    $this->destroySession();
+    
+    $this->setPersistentData(
+      'access_token', $response_params['access_token']
+    );
+  }
+
+  /**
    * Determines the access token that should be used for API calls.
    * The first time this is called, $this->accessToken is set equal
    * to either a valid user access token, or it's set to the application
@@ -427,7 +470,7 @@ abstract class BaseFacebook
 
     // as a fallback, just return whatever is in the persistent
     // store, knowing nothing explicit (signed request, authorization
-    // code, etc.) was present to shadow it (or we saw a code in $_REQUEST,
+    // code, etc.) was present to shadow it (or we saw a code in $_GET,
     // but it's the same as what's in the persistent store)
     return $this->getPersistentData('access_token');
   }
@@ -440,9 +483,9 @@ abstract class BaseFacebook
    */
   public function getSignedRequest() {
     if (!$this->signedRequest) {
-      if (isset($_REQUEST['signed_request'])) {
+      if (isset($_GET['signed_request'])) {
         $this->signedRequest = $this->parseSignedRequest(
-          $_REQUEST['signed_request']);
+          $_GET['signed_request']);
       } else if (isset($_COOKIE[$this->getSignedRequestCookieName()])) {
         $this->signedRequest = $this->parseSignedRequest(
           $_COOKIE[$this->getSignedRequestCookieName()]);
@@ -635,15 +678,15 @@ abstract class BaseFacebook
    *               code could not be determined.
    */
   protected function getCode() {
-    if (isset($_REQUEST['code'])) {
+    if (isset($_GET['code'])) {
       if ($this->state !== null &&
-          isset($_REQUEST['state']) &&
-          $this->state === $_REQUEST['state']) {
+          isset($_GET['state']) &&
+          $this->state === $_GET['state']) {
 
         // CSRF state has done its job, so clear it
         $this->state = null;
         $this->clearPersistentData('state');
-        return $_REQUEST['code'];
+        return $_GET['code'];
       } else {
         self::errorLog('CSRF state token does not match one provided.');
         return false;

@@ -6,13 +6,14 @@ class Home extends CI_Controller {
 	{
 		parent::__construct();
 		
-		//check login status
+		/*** check login status ***/
 		if (!$this->ion_auth->logged_in())
 		{
 			//redirect them to the login page
 			redirect('auth/login', 'refresh');
 		}
-        
+		
+		/*** construct html page ***/
 		$title = ucwords(str_replace('_', ' ',$this->router->fetch_method()));
 		$this->head['doctype'] = doctype('html5');
 		$this->head['title'] = "UtangApp | " . $title;
@@ -29,13 +30,14 @@ class Home extends CI_Controller {
 	}
 	
 	public function index() {
-		$this->load->view('templates/base_header', $this->head);
-		$this->load->view('home/index');
-		$this->load->view('templates/base_footer');
+		$this->home();
 	}
 
 	public function home() {
-		
+		//$this->utang_model->isRegisteredUser('hahaha');
+		$this->load->view('templates/base_header', $this->head);
+		$this->load->view('home/index');
+		$this->load->view('templates/base_footer');
 	}
 }
 

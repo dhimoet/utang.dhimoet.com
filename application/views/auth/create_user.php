@@ -7,7 +7,7 @@
   
 	<div data-role='content'>
   
-		<form name='signup' action='/auth/create_user' method='post'>
+		<form name='signup' action='/auth/create_user' method='post' data-ajax='false'>
  
 			<p>
 				<label for="first_name">First Name:</label>
@@ -27,6 +27,11 @@
 			<p>
 				<label for="password">Password:</label>
 				<input type='password' name='password' value='' class="validate[required]"/>
+			</p>
+			
+			<p>
+				<label for="password_confirm">Password:</label>
+				<input type='password' name='password_confirm' value='' class="validate[required]"/>
 			</p>
           
 			<input type='submit' name='login' value='Sign Up!' data-theme='b'/>

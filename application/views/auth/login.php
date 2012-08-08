@@ -9,7 +9,7 @@
 		
 		<div class="bottom_40">
 			
-			<a href='/fb/login/' data-role='button' data-theme='b' data-ajax="false">Login With Facebook</a>
+			<a href='/fb/login/' data-role='button' data-theme='b' data-ajax='false'>Login with Facebook</a>
 			
 		</div>
 	
