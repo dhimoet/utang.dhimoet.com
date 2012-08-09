@@ -8,8 +8,8 @@
   
 	<div data-role='content'>
 		<div class='content_header'>
-			<h1>First Last</h1>
-			<h2 class='amount_owned'>$500.00</h2>
+			<div>First Last</div>
+			<div class='amount_total amount_owned'>$500.00</div>
 		</div>
 		<ul data-role='listview'>
 			<?for($i=0; $i<10; $i++) {?>
