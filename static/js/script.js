@@ -36,5 +36,19 @@ $(document).delegate("", "pageinit", function() {
 		}
 	});
 	
-	
+	/*** generate friends list ***/
+	$('#name').blur(function() {
+		$.ajax({
+			url: "/ajax/getFriends/",
+			type: "POST",
+			async: false,
+			data: {},
+			success: function(data) {
+				
+			},
+			error: function() {
+				
+			}
+		});
+	});
 });

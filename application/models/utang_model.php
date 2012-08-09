@@ -10,10 +10,10 @@ class Utang_model extends CI_Model
 	/**
 	 * Match username in database
 	 */
-	public function is_registered_user($email) 
+	public function is_registered_user(Array $user) 
 	{
-		$this->db->select('email');
-		$query = $this->db->get_where('users', array('email' => $email));
+		$this->db->select('UserID');
+		$query = $this->db->get_where('users_facebook', array('UserID' => $user['user_id']));
 		
 		// make sure that the entry only returns 1, not 0 or greater than 1
 		if($query->num_rows() == 1) {
@@ -28,38 +28,35 @@ class Utang_model extends CI_Model
 	{
 		if (!empty($user))
 		{
-			$username = strtolower($user['first_name']) . ' ' . strtolower($user['last_name']);
-			$email    = $user['email'];
-			$password = $user['password'];
-
-			$additional_data = array(
-				'first_name' => $user['first_name'],
-				'last_name'  => $user['last_name'],
+			$email    = $user['username'] . '@facebook.com';
+			
+			$data = array(
+				'UserID' => $user['user_id'],
+				'FirstName' => $user['first_name'],
+				'LastName' => $user['last_name'],
+				'Name' => $user['first_name'] .' '. $user['last_name'],
+				'UserName' => $user['username'],
+				'Email' => $user['username'] . '@facebook.com',
 			);
-		}
-		if (!empty($user) && $this->ion_auth->register($username, $password, $email, $additional_data))
-		{ 
-			//check to see if we are creating the user
-			//redirect them back to the admin page
-			$this->session->set_flashdata('message', $this->ion_auth->messages());
+			
+			$this->db->insert('users_facebook', $data);
 		}
 	}
 	
-	public function fb_login(Array $user) 
+	public function fb_login($user_id) 
 	{
-		if ($this->ion_auth->login($user['email'], $user['password'], true))
-			{ 
-				//if the login is successful
-				//redirect them back to the home page
-				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect($this->config->item('base_url'), 'refresh');
-			}
-			else
-			{ 
-				//if the login was un-successful
-				//redirect them back to the login page
-				$this->session->set_flashdata('message', $this->ion_auth->errors());
-				redirect('auth/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
-			}
+		if ($user_id)
+		{ 
+			//if the login is successful
+			//redirect them back to the home page
+			$this->session->set_flashdata('message', $user_id);
+			redirect($this->config->item('base_url'), 'refresh');
+		}
+		else
+		{ 
+			//if the login was un-successful
+			//redirect them back to the login page
+			redirect('auth/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
+		}
 	}
 }
