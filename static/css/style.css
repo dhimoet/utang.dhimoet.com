@@ -14,16 +14,34 @@
 	margin-bottom: 40px;
 }
 
-.friend_name {
+.content_header h1 {
+	display: inline-block;
+	margin-top: 10px;
+}
 
+.content_header h2 {
+	font-weight: bold;
+	float: right;
+	margin-top: 15px;
 }
 
 .amount_owed {
-
+	color: red;
 }
 
 .amount_owned {
 	color: green;
+}
+
+.list_title {
+	font-size: 20px;
+	margin-bottom: 8px;
+}
+
+.list_amount {
+	float: right;
+	margin-top: -34px;
+	margin-right: 10px;
 }
 
 .timestamp_1 {
