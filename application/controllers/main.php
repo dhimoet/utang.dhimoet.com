@@ -28,13 +28,25 @@ class Main extends CI_Controller {
 	{
 		$this->load->view('templates/base_header', $this->head);
 		$this->load->view('main/home');
+		$this->load->view('templates/nav_footer');
 		$this->load->view('templates/base_footer');
 	}
 	
 	public function summary()
 	{
 		$this->load->view('templates/base_header', $this->head);
+		$this->load->view('templates/nav_header', $this->head);
 		$this->load->view('main/summary');
+		$this->load->view('templates/nav_footer');
+		$this->load->view('templates/base_footer');
+	}
+	
+	public function details()
+	{
+		$this->load->view('templates/base_header', $this->head);
+		$this->load->view('templates/nav_header', $this->head);
+		$this->load->view('main/details');
+		$this->load->view('templates/nav_footer');
 		$this->load->view('templates/base_footer');
 	}
 }
