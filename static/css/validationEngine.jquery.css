@@ -31,6 +31,7 @@
 }
 
 .formError .formErrorContent {
+	text-align: left !important;
 	width: 100%;
 	background: #ee0101;
 	position:relative;

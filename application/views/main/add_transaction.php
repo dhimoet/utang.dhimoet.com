@@ -24,14 +24,14 @@
 				</div>
 				<div class="ui-block-b amount_input">  
 					<label for='add_transaction[amount]'>$</label>
-					<input type="text" name="add_transaction[amount]" id="amount" placeholder="0.00" />
+					<input type="text" name="add_transaction[amount]" id="amount" class="validate[required,custom[number]]" placeholder="0.00" />
 				</div>
 			</div>
 			
 			<div class='details_label'>Title:</div>
 			
 			<div>
-				<input type='text' name="add_transaction[title]" id="title" placeholder='Enter a brief comment' />
+				<input type='text' name="add_transaction[title]" id="title" class="validate[required]" placeholder='Enter a brief comment' />
 			</div>
 			
 			<div class='details_label'>Description:</div>
