@@ -27,6 +27,7 @@ class Main extends CI_Controller {
 	public function home()
 	{
 		$this->load->view('templates/base_header', $this->head);
+		$this->load->view('templates/nav_header', $this->head);
 		$this->load->view('main/home');
 		$this->load->view('templates/nav_footer');
 		$this->load->view('templates/base_footer');
@@ -46,6 +47,24 @@ class Main extends CI_Controller {
 		$this->load->view('templates/base_header', $this->head);
 		$this->load->view('templates/nav_header', $this->head);
 		$this->load->view('main/details');
+		$this->load->view('templates/nav_footer');
+		$this->load->view('templates/base_footer');
+	}
+	
+	public function history()
+	{
+		$this->load->view('templates/base_header', $this->head);
+		$this->load->view('templates/nav_header', $this->head);
+		$this->load->view('main/history');
+		$this->load->view('templates/nav_footer');
+		$this->load->view('templates/base_footer');
+	}
+	
+	public function add_transaction()
+	{
+		$this->load->view('templates/base_header', $this->head);
+		$this->load->view('templates/nav_header', $this->head);
+		$this->load->view('main/add_transaction');
 		$this->load->view('templates/nav_footer');
 		$this->load->view('templates/base_footer');
 	}

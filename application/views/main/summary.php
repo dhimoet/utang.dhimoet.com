@@ -1,4 +1,5 @@
 	<div data-role='content'>
+		
 		<div class='content_header'>
 			<div>First Last</div>
 			<div class='amount_total amount_owned'>$500.00</div>
@@ -14,4 +15,5 @@
 			</li>
 			<?}?>
 		</ul>
+		
 	</div><!-- content container -->

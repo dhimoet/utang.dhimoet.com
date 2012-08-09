@@ -1,12 +1,5 @@
-<div data-role='page' data-title='<?=$title;?>' id='<?=strtolower($title);?>'>
-  
-	<div data-theme='b' data-role='header' data-position='fixed'>
-		<h3><?=$title;?></h3>
-		<a onclick='window.location.reload()' data-role='button' data-icon='refresh'>Refresh</a>
-		<a href='/utang/add/' data-role='button' data-icon='plus'>Add</a>
-	</div>
-  
 	<div data-role='content'>
+		
 		<ul data-role='listview'>
 			<?for($i=0; $i<10; $i++) {?>
 			<li class='short_summary'>
@@ -18,5 +11,6 @@
 			</li>
 			<?}?>
 		</ul>
+		
 	</div><!-- content container -->
 
