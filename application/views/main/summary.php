@@ -7,7 +7,7 @@
 		<ul data-role='listview'>
 			<?for($i=0; $i<10; $i++) {?>
 			<li class='short_summary'>
-				<a href='/main/details/' data-transition='slide'>
+				<a href='/main/details/'>
 					<div class='list_title'>Title</div>
 					<div class='information'>Aug 06, 2012</div>
 					<div class='list_amount amount_owned'>$100.00</div>

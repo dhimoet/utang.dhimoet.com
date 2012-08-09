@@ -21,6 +21,8 @@
 	left: 300px;
 	display: block;
 	cursor: pointer;
+	text-align: left !important;
+	width: 80px !important;
 }
 
 .ajaxSubmit {
@@ -31,8 +33,6 @@
 }
 
 .formError .formErrorContent {
-	text-align: left !important;
-	width: 100%;
 	background: #ee0101;
 	position:relative;
 	color: #fff;

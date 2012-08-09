@@ -4,5 +4,6 @@ $(document).delegate("", "pageinit", function() {
 	$('form[name="login"]').validationEngine('attach', {promptPosition : "bottomLeft", scroll: false});
 	$('form[name="signup"]').validationEngine('attach', {promptPosition : "bottomLeft", scroll: false});
 	$('form[name="add_transaction"]').validationEngine('attach', {promptPosition : "bottomLeft", scroll: false});
+	$('form[name="add_friend"]').validationEngine('attach', {promptPosition : "bottomLeft", scroll: false});
 	
 });
