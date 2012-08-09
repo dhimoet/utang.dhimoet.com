@@ -10,7 +10,7 @@
 			
 			<div>
 				<select id="name_list">
-					<option value=''>Type something and browse here</option>
+					<option value=''>Browse here</option>
 				</select>
 			</div>
 			

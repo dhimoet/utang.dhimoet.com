@@ -130,6 +130,7 @@ class Auth extends CI_Controller {
 
 		if ($this->form_validation->run() == false)
 		{ 
+			redirect('settings/change_password', 'refresh');
 			//display the form
 			//set the flash data error message if there is one
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');

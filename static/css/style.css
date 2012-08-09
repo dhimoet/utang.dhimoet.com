@@ -71,3 +71,10 @@ textarea {
 	font-style: italic;
 	font-weight: normal;
 }
+
+#ajax_loader {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 999;
+}
