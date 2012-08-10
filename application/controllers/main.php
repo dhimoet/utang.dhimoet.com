@@ -7,7 +7,7 @@ class Main extends CI_Controller {
 		parent::__construct();
 		
 		/*** check login status ***/
-		if (!$this->ion_auth->logged_in())
+		if (!$this->ion_auth->logged_in() && !$this->my_fb->logged_in())
 		{
 			//redirect them to the login page
 			redirect('auth/login', 'refresh');

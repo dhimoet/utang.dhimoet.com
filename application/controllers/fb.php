@@ -6,27 +6,6 @@ class Fb extends CI_Controller {
 	{
 		parent::__construct();
 		
-		$this->facebook = facebookInit();
-		// Get User ID
-		$this->user = $this->facebook->getUser();
-		$user = $this->user;
-		if ($user) {
-			try {
-				// Proceed knowing you have a logged in user who's authenticated.
-				$this->user_profile = $this->facebook->api('/me');
-			} 
-			catch (FacebookApiException $e) {
-				error_log($e);
-				$user = null;
-			}
-		}
-		if ($user) {
-			$this->logoutUrl = $this->facebook->getLogoutUrl();
-		} 
-		else {
-			$this->loginUrl = $this->facebook->getLoginUrl();
-		}
-		
 		/*** construct html page ***/
 		$title = ucwords(str_replace('_', ' ',$this->router->fetch_method()));
 		$this->head['title'] = $title;
@@ -39,13 +18,15 @@ class Fb extends CI_Controller {
 	
 	public function login()
 	{
-		if($this->user) {
+		
+		if($this->my_fb->get_user()) {
 			/*** check database for the user ***/
+			$user_profile = $this->my_fb->get_user_profile();
 			$user = array(
-				'user_id' => $this->user_profile['id'],
-				'first_name' => $this->user_profile['first_name'],
-				'last_name' => $this->user_profile['last_name'],
-				'username' => $this->user_profile['username'],
+				'user_id' => $user_profile['id'],
+				'first_name' => $user_profile['first_name'],
+				'last_name' => $user_profile['last_name'],
+				'username' => $user_profile['username'],
 			);
 			
 			/*** create a new account if the user does not exist ***/
@@ -54,24 +35,21 @@ class Fb extends CI_Controller {
 			}
 			
 			/*** log in the user ***/
-			$this->utang_model->fb_login($this->user);
-			
-			/*** redirect to homepage ***/
-			redirect($this->config->item('base_url'), 'refresh');
+			$this->utang_model->fb_login($user);
 		}
 		else {
 			/*** log in user to facebook ***/
-			redirect($this->loginUrl);
+			redirect($this->my_fb->get_login_url());
 		}
 	}
 	
 	public function logout()
 	{
 		// clear cookies
-		$this->facebook->destroySession();
+		$this->my_fb->close();
 		// logout user
-		if($this->user) {
-			redirect($this->logoutUrl);
+		if($this->my_fb->get_user()) {
+			redirect($this->my_fb->get_logout_url());
 		}
 		else {
 			redirect('auth/login', 'refresh');
