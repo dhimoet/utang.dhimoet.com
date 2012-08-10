@@ -30,12 +30,18 @@ class Fb extends CI_Controller {
 			);
 			
 			/*** create a new account if the user does not exist ***/
-			if(!$this->utang_model->is_registered_user($user)) {
-				$this->utang_model->fb_create_user($user);
+			if(!$this->facebook_model->is_registered_user($user)) {
+				$this->facebook_model->create_user($user);
 			}
-			
+			else {
+				/*** update user's information if it has changed ***/
+				if($this->facebook_model->user_updated($user)) {
+					$this->facebook_model->update_user($user);
+				}
+			}
+
 			/*** log in the user ***/
-			$this->utang_model->fb_login($user);
+			$this->facebook_model->login($user['user_id']);
 		}
 		else {
 			/*** log in user to facebook ***/
@@ -45,14 +51,14 @@ class Fb extends CI_Controller {
 	
 	public function logout()
 	{
-		// clear cookies
-		$this->my_fb->close();
 		// logout user
 		if($this->my_fb->get_user()) {
+			// clear cookies
+			$this->my_fb->close();
 			redirect($this->my_fb->get_logout_url());
 		}
 		else {
-			redirect('auth/login', 'refresh');
+			redirect('auth/logout', 'refresh');
 		}
 	}
 }

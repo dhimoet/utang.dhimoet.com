@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Utang_model extends CI_Model
+class Facebook_model extends CI_Model
 {
 	public function __construct()
 	{
@@ -16,7 +16,7 @@ class Utang_model extends CI_Model
 		$query = $this->db->get_where('users_facebook', array('UserID' => $user['user_id']));
 		
 		// make sure that the entry only returns 1, not 0 or greater than 1
-		if($query->num_rows() == 1) {
+		if($query->num_rows() === 1) {
 			return true;
 		}
 		else {
@@ -24,7 +24,7 @@ class Utang_model extends CI_Model
 		}
 	}
 	
-	public function fb_create_user(Array $user)
+	public function create_user(Array $user)
 	{
 		if (!empty($user))
 		{
@@ -43,7 +43,7 @@ class Utang_model extends CI_Model
 		}
 	}
 	
-	public function fb_login($user_id) 
+	public function login($user_id) 
 	{
 		if ($user_id)
 		{ 
@@ -56,7 +56,45 @@ class Utang_model extends CI_Model
 		{ 
 			//if the login was un-successful
 			//redirect them back to the login page
-			redirect('auth/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
+			redirect('auth/login', 'refresh');
 		}
+	}
+	
+	public function user_updated($user)
+	{
+		$query = $this->db->get_where('users_facebook', array('UserID' => $user['user_id']));		
+		$stored_user = $query->row_array();
+		
+		// compare first name
+		if($stored_user['FirstName'] != $user['first_name']) {
+			return true;
+		}
+		// compare last name
+		if($stored_user['LastName'] != $user['last_name']) {
+			return true;
+		}
+		// compare username
+		if($stored_user['UserName'] != $user['username']) {
+			return true;
+		}
+
+		return false;
+	}
+	
+	public function update_user($user)
+	{
+		$email    = $user['username'] . '@facebook.com';
+		
+		$data = array(
+			'UserID' => $user['user_id'],
+			'FirstName' => $user['first_name'],
+			'LastName' => $user['last_name'],
+			'Name' => $user['first_name'] .' '. $user['last_name'],
+			'UserName' => $user['username'],
+			'Email' => $user['username'] . '@facebook.com',
+		);
+		
+		$this->db->where('UserID', $user['user_id']);
+		$this->db->update('users_facebook', $data);
 	}
 }

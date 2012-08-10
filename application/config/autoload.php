@@ -64,7 +64,7 @@ $autoload['libraries'] = array('database', 'session', 'ion_auth', 'form_validati
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'doctypes', 'facebook');
+$autoload['helper'] = array('url', 'doctypes', 'facebook', 'customphp');
 
 
 /*
@@ -109,7 +109,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('utang_model');
+$autoload['model'] = array('facebook_model');
 
 
 /* End of file autoload.php */
