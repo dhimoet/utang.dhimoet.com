@@ -8,11 +8,17 @@
 				<input type='text' name='name' id='name' class='validate[required]' placeholder='Type a name here' />
 			</div>
 			
-			<div>
-				<select id="name_list">
-					<option value=''>Browse here</option>
-				</select>
-			</div>
+			<ul data-role='listview' id="user_list"></ul>
+			
+			<script id="user_template" type="text/template">
+				<li class='short_summary'>
+					<div class="list_title"><%= username %></div>
+					<div class="information"><%= email %></div>
+					<div class="image_container">
+						<img src="<%= photo %>" />
+					</div>
+				</li>
+			</script>
 			
 			<div>
 				<input type='submit' value='Send Request' data-theme='b' />
@@ -21,3 +27,6 @@
 		</form>
 		
 	</div>
+	
+	<script type="text/javascript" src="/static/js/friend_list.js"></script>
+	<script type="text/javascript" src="/static/js/script.js"></script>

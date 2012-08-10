@@ -72,6 +72,20 @@ textarea {
 	font-weight: normal;
 }
 
+.user_container {
+	position: relative;
+}
+
+.image_container {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+
+#user_list {
+	margin: 20px -15px !important;
+}
+
 #ajax_loader {
 	position: absolute;
 	top: 0px;

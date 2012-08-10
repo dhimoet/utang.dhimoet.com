@@ -6,7 +6,7 @@ class Ajax extends CI_Controller {
     
 	}
     
-	public function sendReport() 
+	public function send_report() 
 	{
 		$this->load->library('email');
 		
@@ -32,6 +32,27 @@ class Ajax extends CI_Controller {
 		else {
 			echo "failed";
 		}
+	}
+	
+	public function get_users() 
+	{
+		$key = $this->input->post('key');
+		
+		// get from users table
+		$this->db->select('username, email');
+		$this->db->like('username', $key);
+		$query = $this->db->get('users');
+		$user_list = $query->result();
+		
+		echo json_encode($user_list);
+		
+		// get from users_facebook table
+		//$this->db->select('Email', 'Name');
+		//$this->db->like('Name', $key);
+		//$query = $this->db->get('users_facebook');
+		//array_push($user_list, $query->result_array());
+		//$user_list = $query->result_array();
+		//print_rf($user_list); die;
 	}
 }
 

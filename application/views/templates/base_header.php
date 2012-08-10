@@ -15,8 +15,8 @@
 	<script type="text/javascript" src="/static/js/jquery.validationEngine-en.js"></script>
 	<script type="text/javascript" src="/static/js/underscore-min.js"></script>
 	<script type="text/javascript" src="/static/js/backbone-min.js"></script>
-	<script type="text/javascript" src="/static/js/script.js"></script>
 	<script type="text/javascript" src="/static/jquery.mobile-1.1.1/jquery.mobile-1.1.1.min.js"></script>
+	
 
 </head>
 <body>

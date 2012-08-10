@@ -14,7 +14,7 @@ $(document).delegate("", "pageinit", function() {
 			var title = $('#title').val();
 			var description = $('#description').val();
 			$.ajax({
-				url: "/ajax/sendReport/",
+				url: "/ajax/send_report/",
 				type: "POST",
 				async: false,
 				data: {title : title, description : description},
@@ -36,18 +36,23 @@ $(document).delegate("", "pageinit", function() {
 		}
 	});
 	
-	/*** generate friends list ***/
-	$('#name').blur(function() {
-		$.ajax({
-			url: "/ajax/getFriends/",
-			type: "POST",
-			async: false,
-			data: {},
-			success: function(data) {
-				
-			},
-			error: function() {
-				
+	/*** search for user names ***/
+	$('#name').focus(function() {
+		$('#name').ajaxStop().keyup(function() {
+			if($('#name').val().length > 2) {
+				var key = $('#name').val();
+				// open database and search
+				$.ajax({
+					url: "/ajax/get_users/",
+					type: "POST",
+					data: {key : key},
+					beforeSend: function() {
+						$('#user_list').empty();
+					},
+					success: function(data) {
+						get_user_list(data);
+					}
+				});
 			}
 		});
 	});
