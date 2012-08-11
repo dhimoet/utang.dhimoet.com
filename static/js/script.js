@@ -61,4 +61,14 @@ $(document).delegate("", "pageinit", function() {
 		$('#name').val($(this).find('.list_title').text());
 		$('#email').val($(this).find('.information').text());	
 	});
+	
+	/*** bind submit nav button to the real button ***/
+	$('#submit').click(function() {
+		$('form').submit();
+	});
+});
+
+$(document).ready(function() {
+	/*** bind notification popup ***/
+	$('#settings').validationEngine('showPrompt', '100', 'red', 'topLeft');
 });

@@ -28,6 +28,3 @@
 		</form>
 		
 	</div>
-	
-	<script type="text/javascript" src="/static/js/friend_list.js"></script>
-	<script type="text/javascript" src="/static/js/script.js"></script>

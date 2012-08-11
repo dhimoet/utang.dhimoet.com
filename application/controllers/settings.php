@@ -34,12 +34,9 @@ class Settings extends CI_Controller {
 		
 		if ($this->form_validation->run() == true) {
 			// store to database
-			$data = array(
-				'UserID1' => $this->session->userdata['user_id'],
-				'UserID2' => $this->users_model->get_user_id($this->input->post('email')),
-				'Type' => 'friend_request'
-			);
-			$this->db->insert('userrelationships', $data);
+			$id1 = $this->session->userdata['user_id'];
+			$id2 = $this->users_model->get_id($this->input->post('email'));
+			$this->users_model->add_friend($id1, $id2);
 			
 			redirect('/settings/', 'refresh');
 		}
