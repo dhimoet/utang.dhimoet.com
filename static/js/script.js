@@ -39,7 +39,7 @@ $(document).delegate("", "pageinit", function() {
 	/*** search for user names ***/
 	$('#name').focus(function() {
 		$('#name').keyup(function() {
-			if(!($('#name').val().length % 3) && $('#name').val().length != 0) {
+			if(!($('#name').val().length % 3) && $('#name').val().length) {
 				var key = $('#name').val();
 				// open database and search
 				$.ajax({
@@ -59,6 +59,6 @@ $(document).delegate("", "pageinit", function() {
 	/*** copy a name to input text ***/
 	$('#user_list a').live('click', function() {
 		$('#name').val($(this).find('.list_title').text());
-		
+		$('#email').val($(this).find('.information').text());	
 	});
 });

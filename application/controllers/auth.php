@@ -393,7 +393,7 @@ class Auth extends CI_Controller {
 
 		if ($this->form_validation->run() == true)
 		{
-			$username = strtolower($this->input->post('first_name')) . ' ' . strtolower($this->input->post('last_name'));
+			$username = ucwords(strtolower($this->input->post('first_name'))) . ' ' . ucwords(strtolower($this->input->post('last_name')));
 			$email    = $this->input->post('email');
 			$password = $this->input->post('password');
 

@@ -49,7 +49,12 @@ class My_fb {
 	
 	public function get_user_profile()
 	{
-		return $this->user_profile;
+		if(isset($this->user_profile)) {
+			return $this->user_profile;
+		}
+		else {
+			return 0;
+		}
 	}
 	
 	public function get_logout_url()

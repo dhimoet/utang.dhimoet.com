@@ -29,11 +29,28 @@ class Settings extends CI_Controller {
 	
 	public function add_friend()
 	{
-		$this->load->view('templates/base_header', $this->head);
-		$this->load->view('templates/nav_header', $this->head);
-		$this->load->view('settings/add_friend');
-		$this->load->view('templates/nav_footer');
-		$this->load->view('templates/base_footer');
+		$this->form_validation->set_rules('name', 'Name', 'required');
+		$this->form_validation->set_rules('email', 'Email', 'required');
+		
+		if ($this->form_validation->run() == true) {
+			// store to database
+			$data = array(
+				'UserID1' => $this->session->userdata['user_id'],
+				'UserID2' => $this->users_model->get_user_id($this->input->post('email')),
+				'Type' => 'friend_request'
+			);
+			$this->db->insert('userrelationships', $data);
+			
+			redirect('/settings/', 'refresh');
+		}
+		else {
+			// display an add friend form
+			$this->load->view('templates/base_header', $this->head);
+			$this->load->view('templates/nav_header', $this->head);
+			$this->load->view('settings/add_friend');
+			$this->load->view('templates/nav_footer');
+			$this->load->view('templates/base_footer');
+		}
 	}
 	
 	public function change_password()

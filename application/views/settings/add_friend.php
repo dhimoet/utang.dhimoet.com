@@ -6,6 +6,7 @@
 			
 			<div>
 				<input type='text' name='name' id='name' class='validate[required]' placeholder='Type a name here' />
+				<input type='hidden' name='email' id='email' value='' />
 			</div>
 			
 			<ul data-role='listview' id="user_list"></ul>
