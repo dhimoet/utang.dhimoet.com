@@ -16,13 +16,16 @@ class Settings extends CI_Controller {
 		/*** construct html page ***/
 		$title = ucwords(str_replace('_', ' ',$this->router->fetch_method()));
 		$this->head['title'] = $title;
+		
+		/*** get notification number ***/
+		$this->data['notif'] = $this->users_model->get_notification_number();
 	}
 	
 	public function index()
 	{
 		$this->load->view('templates/base_header', $this->head);
 		$this->load->view('templates/nav_header', $this->head);
-		$this->load->view('settings/index');
+		$this->load->view('settings/index', $this->data);
 		$this->load->view('templates/nav_footer');
 		$this->load->view('templates/base_footer');
 	}
@@ -44,7 +47,7 @@ class Settings extends CI_Controller {
 			// display an add friend form
 			$this->load->view('templates/base_header', $this->head);
 			$this->load->view('templates/nav_header', $this->head);
-			$this->load->view('settings/add_friend');
+			$this->load->view('settings/add_friend', $this->data);
 			$this->load->view('templates/nav_footer');
 			$this->load->view('templates/base_footer');
 		}
@@ -54,7 +57,7 @@ class Settings extends CI_Controller {
 	{
 		$this->load->view('templates/base_header', $this->head);
 		$this->load->view('templates/nav_header', $this->head);
-		$this->load->view('settings/change_password');
+		$this->load->view('settings/change_password', $this->data);
 		$this->load->view('templates/nav_footer');
 		$this->load->view('templates/base_footer');
 	}
@@ -63,7 +66,7 @@ class Settings extends CI_Controller {
 	{
 		$this->load->view('templates/base_header', $this->head);
 		$this->load->view('templates/nav_header', $this->head);
-		$this->load->view('settings/notifications');
+		$this->load->view('settings/notifications', $this->data);
 		$this->load->view('templates/nav_footer');
 		$this->load->view('templates/base_footer');
 	}
@@ -72,7 +75,7 @@ class Settings extends CI_Controller {
 	{
 		$this->load->view('templates/base_header', $this->head);
 		$this->load->view('templates/nav_header', $this->head);
-		$this->load->view('settings/report_tool');
+		$this->load->view('settings/report_tool', $this->data);
 		$this->load->view('templates/nav_footer');
 		$this->load->view('templates/base_footer');
 	}
@@ -81,7 +84,7 @@ class Settings extends CI_Controller {
 	{
 		$this->load->view('templates/base_header', $this->head);
 		$this->load->view('templates/nav_header', $this->head);
-		$this->load->view('settings/help');
+		$this->load->view('settings/help', $this->data);
 		$this->load->view('templates/nav_footer');
 		$this->load->view('templates/base_footer');
 	}

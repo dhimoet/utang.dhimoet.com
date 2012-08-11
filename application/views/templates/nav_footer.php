@@ -1,3 +1,11 @@
+<script>
+$(document).ready(function() {
+	<?if($notif) {?>
+		/*** bind notification popup ***/
+		$('#settings').validationEngine('showPrompt', <?=$notif;?>, 'red', 'topLeft');
+	<?}?>
+});
+</script>
 
 	<div data-role='footer' data-position='fixed' >
 		<div data-role="controlgroup" data-type="horizontal">

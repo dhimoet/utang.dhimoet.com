@@ -67,8 +67,3 @@ $(document).delegate("", "pageinit", function() {
 		$('form').submit();
 	});
 });
-
-$(document).ready(function() {
-	/*** bind notification popup ***/
-	$('#settings').validationEngine('showPrompt', '100', 'red', 'topLeft');
-});

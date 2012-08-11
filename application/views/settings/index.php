@@ -11,7 +11,7 @@
 		<ul data-role='listview' data-inset='true'>
 			
 			<li>
-				<a href='/settings/notifications/'>Notifications</a>
+				<a href='/settings/notifications/'>Notifications<span class='ui-li-count'><?=$notif;?></span></a>
 			</li>
 		
 		</ul>

@@ -96,4 +96,11 @@ class Users_model extends CI_Model
 		);
 		$this->db->insert('notifications', $data);
 	}
+	
+	public function get_notification_number()
+	{
+		$query = $this->db->get_where('notifications', array('RelatedUserID' => $this->session->userdata['user_id']));
+
+		return $query->num_rows;
+	}
 }
