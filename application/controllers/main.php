@@ -16,6 +16,9 @@ class Main extends CI_Controller {
 		/*** construct html page ***/
 		$title = ucwords(str_replace('_', ' ',$this->router->fetch_method()));
 		$this->head['title'] = $title;
+		
+		/*** get notification number ***/
+		$this->data['notif'] = $this->users_model->get_notification_number();
 	}
 	
 	public function index()
