@@ -16,8 +16,8 @@ function get_user_list(data) {
 
 	/*** views ***/
 	var UserView = Backbone.View.extend({
-		tagName: "user",
-		className: "user_container",
+		tagName: "li",
+		className: "ui-li ui-li-static ui-body-c",
 		template: $('#user_template').html(),
 		render: function() {
 			var tmpl = _.template(this.template);

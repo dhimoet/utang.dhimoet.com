@@ -38,22 +38,27 @@ $(document).delegate("", "pageinit", function() {
 	
 	/*** search for user names ***/
 	$('#name').focus(function() {
-		$('#name').ajaxStop().keyup(function() {
-			if($('#name').val().length > 2) {
+		$('#name').keyup(function() {
+			if(!($('#name').val().length % 3) && $('#name').val().length != 0) {
 				var key = $('#name').val();
 				// open database and search
 				$.ajax({
 					url: "/ajax/get_users/",
 					type: "POST",
 					data: {key : key},
-					beforeSend: function() {
-						$('#user_list').empty();
-					},
 					success: function(data) {
+						$('#user_list').empty();
 						get_user_list(data);
+						$(this).ajaxStop();
 					}
 				});
 			}
 		});
+	});
+	
+	/*** copy a name to input text ***/
+	$('#user_list a').live('click', function() {
+		$('#name').val($(this).find('.list_title').text());
+		
 	});
 });

@@ -11,13 +11,13 @@
 			<ul data-role='listview' id="user_list"></ul>
 			
 			<script id="user_template" type="text/template">
-				<li class='short_summary'>
+				<a href="javascript:void(0)">
 					<div class="list_title"><%= username %></div>
 					<div class="information"><%= email %></div>
 					<div class="image_container">
 						<img src="<%= photo %>" />
 					</div>
-				</li>
+				</a>
 			</script>
 			
 			<div>
