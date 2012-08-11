@@ -1,3 +1,5 @@
+	<script type="text/javascript" src="/static/js/friend_list.js"></script>
+	
 	<div data-role='content'>
 		
 		<form name='add_friend' action="/settings/add_friend/" method="post" id='add_friend' data-ajax="false">

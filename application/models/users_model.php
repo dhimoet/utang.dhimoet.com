@@ -54,6 +54,14 @@ class Users_model extends CI_Model
 		return $query->result_array();
 	}
 	
+	public function get_friend($id)
+	{
+		$this->db->select('id, username, email');
+		$query = $this->db->get_where('users', array('id' => $id));
+		
+		return $query->row();
+	}
+	
 	/**
 	 * Get an array of not friends
 	 */
@@ -62,6 +70,7 @@ class Users_model extends CI_Model
 		$friends_ids = $this->get_friends_ids();		
 		$this->db->select('id, username, email');
 		$this->db->like('username', $key);
+		$this->db->where('id !=', $this->session->userdata['user_id']);
 		if(!empty($friends_ids)) {
 			$this->db->where_not_in('id', $friends_ids);
 		}
@@ -91,7 +100,8 @@ class Users_model extends CI_Model
 	public function set_notification($to, $type)
 	{
 		$data = array(
-			'RelatedUserID' => $to,
+			'SenderId' => $this->session->userdata['user_id'],
+			'ReceiverId' => $to,
 			'Type' => $type
 		);
 		$this->db->insert('notifications', $data);
@@ -99,8 +109,26 @@ class Users_model extends CI_Model
 	
 	public function get_notification_number()
 	{
-		$query = $this->db->get_where('notifications', array('RelatedUserID' => $this->session->userdata['user_id']));
+		$this->db->where('ReceiverId', $this->session->userdata['user_id']);
+		$this->db->where('Viewed', 0);
+		$query = $this->db->get('notifications');
 
 		return $query->num_rows;
+	}
+	
+	public function get_notifications()
+	{
+		$this->db->where('ReceiverId', $this->session->userdata['user_id']);
+		$this->db->where('Viewed', 0);
+		$query = $this->db->get('notifications');
+		
+		return $query->result_array();
+	}
+	
+	public function clear_notifications()
+	{
+		echo 1; die;
+		$this->db->where('ReceiverId', $this->session->userdata['user_id']);
+		$this->db->update('notifications', array('Viewed' => 1));
 	}
 }

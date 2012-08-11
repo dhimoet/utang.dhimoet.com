@@ -64,11 +64,15 @@ class Settings extends CI_Controller {
 	
 	public function notifications()
 	{
+		$this->data['notifications'] = $this->users_model->get_notifications();
+
 		$this->load->view('templates/base_header', $this->head);
 		$this->load->view('templates/nav_header', $this->head);
 		$this->load->view('settings/notifications', $this->data);
 		$this->load->view('templates/nav_footer');
 		$this->load->view('templates/base_footer');
+		
+		$this->users_model->clear_notifications();
 	}
 	
 	public function report_tool()
