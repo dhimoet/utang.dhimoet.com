@@ -30,6 +30,6 @@
 			
 		</ul>
       
-		<a href='/fb/logout/' data-role='button' data-theme='e' data-ajax='false'>Log Out</a>
+		<a href='/auth/logout/' data-role='button' data-theme='e' data-ajax='false'>Log Out</a>
 	
 	</div>

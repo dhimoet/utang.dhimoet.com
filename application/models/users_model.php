@@ -213,7 +213,7 @@ class Users_model extends CI_Model
 		$this->db->like('Borrower', $borrower);
 		$this->db->like('Lender', $lender);
 		$this->db->order_by('Timestamp', 'desc');
-		$query = $this->db->get('transactions', 10);
+		$query = $this->db->get('transactions', 20);
 		
 		return $query->result_array();
 	}

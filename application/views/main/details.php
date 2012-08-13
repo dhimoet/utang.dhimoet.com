@@ -24,7 +24,7 @@
 		<div class='details_label'>Date/Time:</div>
 		
 		<div class='list_title'>
-			<?=$transaction['Timestamp'];?>
+			<?=friendly_date_time($transaction['Timestamp']);?>
 		</div>
 		
 		<hr />

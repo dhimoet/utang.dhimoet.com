@@ -15,7 +15,7 @@
 			<li class='short_summary'>
 				<a href='/main/details/<?=$transaction['id']?>'>
 					<div class='list_title'><?=$transaction['Title'];?></div>
-					<div class='information'><?=$transaction['Timestamp'];?></div>
+					<div class='information'><?=friendly_date($transaction['Timestamp']);?></div>
 					<div class='list_amount <?=($transaction['Amount'] < 0)?'amount_owed':'amount_owned';?>'>$
 						<?if($transaction['Amount'] < 0) {
 							echo money_format('%i', $transaction['Amount'] * -1);

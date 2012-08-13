@@ -7,14 +7,19 @@
 					<div class='list_title'><?=$friend['username']?></div>
 					<div class='<?=($friend['total'] < 0)?'amount_owed':'amount_owned';?>'>
 						You should 
-						<?=($friend['total'] < 0) ?
-							'collect $'.money_format('%i', $friend['total']*-1) :
-							'return $'.money_format('%i', $friend['total']);?>
+						<?if($friend['total'] < 0) {
+							echo 'collect $ ' . money_format('%i', $friend['total'] * -1);
+						} else {
+							echo 'return $ ' . money_format('%i', $friend['total']);
+						}?>
 					</div>
 					<div class='information'>
-						<?=isset($friend['Timestamp']) ?
-							'Last activity on '.$friend['Timestamp'] :
-							'No activity'?>
+						<?if(isset($friend['Timestamp'])) {
+							echo 'Last activity on '. friendly_date($friend['Timestamp']);
+						}
+						else {
+							echo 'No activity';
+						}?>
 					</div>
 				</a>
 			</li>

@@ -12,19 +12,6 @@ class Facebook_model extends CI_Model
 	 */
 	public function is_registered_user(Array $user) 
 	{
-		/* OLD
-		$this->db->select('UserID');
-		$query = $this->db->get_where('users_facebook', array('UserID' => $user['user_id']));
-		
-		// make sure that the entry only returns 1, not 0 or greater than 1
-		if($query->num_rows() === 1) {
-			return true;
-		}
-		else {
-			return false;
-		}
-		 * 
-		 */
 		$this->db->select('facebook_user_id');
 		$query = $this->db->get_where('users', array('facebook_user_id' => $user['user_id']));
 		
@@ -39,24 +26,6 @@ class Facebook_model extends CI_Model
 	
 	public function create_user(Array $user)
 	{
-		/* OLD
-		if (!empty($user))
-		{
-			$email    = $user['username'] . '@facebook.com';
-			
-			$data = array(
-				'UserID' => $user['user_id'],
-				'FirstName' => $user['first_name'],
-				'LastName' => $user['last_name'],
-				'Name' => $user['first_name'] .' '. $user['last_name'],
-				'UserName' => $user['username'],
-				'Email' => $user['username'] . '@facebook.com',
-			);
-			
-			$this->db->insert('users_facebook', $data);
-		}
-		 * 
-		 */
 		if(!empty($user)) 
 		{
 			$username = $user['first_name'] .' '. $user['last_name'];
