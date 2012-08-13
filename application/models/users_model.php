@@ -124,6 +124,13 @@ class Users_model extends CI_Model
 		$this->set_notification($id2, 'friend_request');
 	}
 	
+	public function update_relationship($id1, $id2)
+	{
+		$this->db->where('UserID1', $id1);
+		$this->db->where('UserID2', $id2);
+		$this->db->update();
+	}
+	
 	public function set_notification($to, $type)
 	{
 		$data = array(
@@ -141,6 +148,13 @@ class Users_model extends CI_Model
 		$query = $this->db->get('notifications');
 
 		return $query->num_rows;
+	}
+	
+	public function get_notification($id)
+	{
+		$query = $this->db->get_where('notifications', array('id' => $id));
+		
+		return $query->row_array();
 	}
 	
 	public function get_notifications()

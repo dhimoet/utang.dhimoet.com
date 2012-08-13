@@ -3,7 +3,12 @@
 		<ul data-role='listview'>
 			<?foreach($notifications as $notification) {?>
 			<li class='short_summary'>
-				<a href='/main/details/'>
+				<?if($notification['Type'] == 'friend_request') {
+					$url = "/settings/friend_request/{$notification['id']}/{$notification['friend']['id']}";
+				} elseif($notification['Type'] == 'added_transaction') {
+					$url = '/main/details/';
+				}?>
+				<a href='<?=$url;?>'>
 					<div class='content_header'>
 						<span class="list_title">
 							<?=$notification['friend']['username'];?>

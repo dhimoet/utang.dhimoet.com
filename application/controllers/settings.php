@@ -41,7 +41,6 @@ class Settings extends CI_Controller {
 			$id2 = $this->users_model->get_id($this->input->post('email'));
 			$this->users_model->add_friend($id1, $id2);
 			
-			$_POST['msg'] = 'Sent a request successfully';
 			redirect('/settings/', 'refresh');
 		}
 		else {
@@ -80,6 +79,26 @@ class Settings extends CI_Controller {
 		$this->load->view('templates/base_footer');
 		
 		$this->users_model->clear_notifications();
+	}
+	
+	public function friend_request($id, $user_id)
+	{
+		// get notification details
+		$this->data['notification'] = $this->users_model->get_notification($id);
+		// get user/friend information
+		$this->data['friend'] = $this->users_model->get_friend($user_id);
+		
+		$this->load->view('templates/base_header', $this->head);
+		$this->load->view('templates/nav_header', $this->head);
+		$this->load->view('settings/friend_request', $this->data);
+		$this->load->view('templates/nav_footer');
+		$this->load->view('templates/base_footer');
+	}
+	
+	public function accept_friend($id)
+	{
+		// change the type on userrelationship table
+		
 	}
 	
 	public function report_tool()
