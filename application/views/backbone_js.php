@@ -27,9 +27,6 @@
 		model: User,
 		url: function() {
 			return '/ajax/get_users/';
-		},
-		initialize: function(key) {
-			this.fetch(key);
 		}
 	});
 
@@ -55,11 +52,19 @@
 	var UserListView = Backbone.View.extend({
 		el: $('#user_list'),
 		initialize: function(key) {
-			this.collection = new UserList(key);
+			this.collection = new UserList();
+			this.collection.fetch({
+				type: 'post',
+				data: {key:key}
+			});
+			this.collection.on('reset', this.render, this);
 			this.render();
 		},
 		render: function() {
 			var that = this;
+			// clear out this element
+			$(this.el).empty();
+			console.log(this.collection);
 			_.each(this.collection.models, function(item) {
 				that.renderUser(item);
 			}, this);

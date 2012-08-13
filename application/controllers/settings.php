@@ -41,6 +41,7 @@ class Settings extends CI_Controller {
 			$id2 = $this->users_model->get_id($this->input->post('email'));
 			$this->users_model->add_friend($id1, $id2);
 			
+			$_POST['msg'] = 'Sent a request successfully';
 			redirect('/settings/', 'refresh');
 		}
 		else {
