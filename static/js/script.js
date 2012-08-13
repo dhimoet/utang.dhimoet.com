@@ -42,6 +42,7 @@ $(document).delegate("", "pageinit", function() {
 			if(!($('#name').val().length % 3) && $('#name').val().length) {
 				var key = $('#name').val();
 				// open database and search
+				/* OLD
 				$.ajax({
 					url: "/ajax/get_users/",
 					type: "POST",
@@ -52,6 +53,8 @@ $(document).delegate("", "pageinit", function() {
 						$(this).ajaxStop();
 					}
 				});
+				*/
+				var user_list = new UserListView(key);
 			}
 		});
 	});

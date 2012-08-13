@@ -47,6 +47,7 @@ class Settings extends CI_Controller {
 			// display an add friend form
 			$this->load->view('templates/base_header', $this->head);
 			$this->load->view('templates/nav_header', $this->head);
+			$this->load->view('backbone_js');
 			$this->load->view('settings/add_friend', $this->data);
 			$this->load->view('templates/nav_footer');
 			$this->load->view('templates/base_footer');
