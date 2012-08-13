@@ -15,12 +15,20 @@ class Users_model extends CI_Model
 		return $query->row()->id;
 	}
 	
+	public function get_username($id)
+	{
+		$this->db->select('username');
+		$query = $this->db->get_where('users', array('id' => $id));
+
+		return $query->row()->username;
+	}
+	
 	public function get_facebook_uid($id)
 	{
 		$this->db->select('facebook_user_id');
 		$query = $this->db->get_where('users', array('id' => $id));
 		
-		return $query->row_array();
+		return $query->row()->facebook_user_id;
 	}
 	
 	/**
@@ -244,8 +252,8 @@ class Users_model extends CI_Model
 	
 	public function get_logout_url()
 	{
-		$me = $this->get_facebook_uid($this->session->userdata['user_id']);
-		if($me['facebook_user_id']) {
+		$url = $this->get_facebook_uid($this->session->userdata['user_id']);
+		if($url) {
 			return '/fb/logout/';
 		}
 		else {

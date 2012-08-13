@@ -31,7 +31,7 @@
 		</ul>
       
 		<a href='<?=$this->users_model->get_logout_url();?>' data-role='button' data-theme='e' data-ajax='false'>
-			Logout <?=$this->session->userdata['username']?>
+			Logout <?=$this->users_model->get_username($this->session->userdata['user_id']);?>
 		</a>
 	
 	</div>
