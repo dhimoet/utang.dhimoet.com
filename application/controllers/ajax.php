@@ -34,9 +34,9 @@ class Ajax extends CI_Controller {
 		}
 	}
 	
-	public function get_users() 
+	public function get_users($key) 
 	{
-		$key = $this->input->post('key');
+		//$key = $this->input->post('key');
 		$users = $this->users_model->get_not_friends($key);
 		
 		echo json_encode($users);

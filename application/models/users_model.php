@@ -102,8 +102,8 @@ class Users_model extends CI_Model
 			$this->db->where_not_in('id', $friends_ids);
 		}
 		$query = $this->db->get('users');
-		$users = $query->result();
-		//array_multisort($users);
+		$users = $query->result_array();
+		array_multisort($users);
 		
 		return $users;
 	}

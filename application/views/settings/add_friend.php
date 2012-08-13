@@ -28,3 +28,30 @@
 		</form>
 		
 	</div>
+
+	<script>
+		$(document).ready(function() {
+			/*** search for user names ***/
+			$('#name').focus(function() {
+				$('#name').keyup(function() {
+					if(!($('#name').val().length % 3) && $('#name').val().length) {
+						var key = $('#name').val();
+						// open database and search
+						/* OLD
+						$.ajax({
+							url: "/ajax/get_users/",
+							type: "POST",
+							data: {key : key},
+							success: function(data) {
+								$('#user_list').empty();
+								get_user_list(data);
+								$(this).ajaxStop();
+							}
+						});
+						*/
+						var user_list = new UserListView(key);
+					}
+				});
+			});
+		});
+	</script>

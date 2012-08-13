@@ -6,15 +6,15 @@
 	 * ***/
 	var User = Backbone.Model.extend({
 		defaults: {
-			username: "",
-			email: "",
+			username: "n/a",
+			email: "n/a",
 			photo: "/static/img/placeholder.gif"
 		}
 	});
 
 	var Notification = Backbone.Model.extend({
 		defaults: {
-			username: "",
+			username: "n/a",
 			type: "added_transaction"
 		}
 	});
@@ -24,7 +24,13 @@
 	 * 
 	 * ***/
 	var UserList = Backbone.Collection.extend({
-		model: User
+		model: User,
+		url: function() {
+			return '/ajax/get_users/';
+		},
+		initialize: function(key) {
+			this.fetch(key);
+		}
 	});
 
 	var NotificationList = Backbone.Collection.extend({
@@ -49,8 +55,7 @@
 	var UserListView = Backbone.View.extend({
 		el: $('#user_list'),
 		initialize: function(key) {
-			
-			this.collection = new UserList(data);
+			this.collection = new UserList(key);
 			this.render();
 		},
 		render: function() {
@@ -97,5 +102,12 @@
 			this.$el.append(notificationView.render().el);
 		}
 	});
+	
+	/*** 
+	 * syncs 
+	 * 
+	 * ***/
+	 
+	
 
 </script>
