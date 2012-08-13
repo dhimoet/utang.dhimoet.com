@@ -24,6 +24,9 @@
 				</a>
 			</li>
 			<?}?>
+			<li data-role="list-divider">
+				You are logged in as <?=$this->session->userdata['username'];?>
+			</li>
 		</ul>
 		
 	</div><!-- content container -->

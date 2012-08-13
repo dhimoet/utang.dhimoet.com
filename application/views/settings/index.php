@@ -30,6 +30,8 @@
 			
 		</ul>
       
-		<a href='/auth/logout/' data-role='button' data-theme='e' data-ajax='false'>Log Out</a>
+		<a href='/auth/logout/' data-role='button' data-theme='e' data-ajax='false'>
+			Logout <?=$this->session->userdata['username']?>
+		</a>
 	
 	</div>
