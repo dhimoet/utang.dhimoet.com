@@ -25,7 +25,7 @@
 			</li>
 			<?}?>
 			<li data-role="list-divider">
-				You are logged in as <?=$this->session->userdata['username'];?>
+				You are logged in as <?=$this->session->userdata['user_id'];?>
 			</li>
 		</ul>
 		
