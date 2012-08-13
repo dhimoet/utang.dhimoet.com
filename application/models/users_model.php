@@ -15,6 +15,14 @@ class Users_model extends CI_Model
 		return $query->row()->id;
 	}
 	
+	public function get_facebook_uid($id)
+	{
+		$this->db->select('facebook_user_id');
+		$query = $this->db->get_where('users', array('id' => $id));
+		
+		return $query->row_array();
+	}
+	
 	/**
 	 * Get an array of friends id's
 	 * This returns 0 for empty list
@@ -232,5 +240,16 @@ class Users_model extends CI_Model
 		}
 		
 		return $transaction['Amount'];
+	}
+	
+	public function get_logout_url()
+	{
+		$me = $this->get_facebook_uid($this->session->userdata['user_id']);
+		if($me['facebook_user_id']) {
+			return '/fb/logout/';
+		}
+		else {
+			return '/auth/logout/';
+		}
 	}
 }
