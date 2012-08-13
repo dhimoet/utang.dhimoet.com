@@ -29,6 +29,21 @@ class Main extends CI_Controller {
 	
 	public function home()
 	{
+		// get friends' basic information (array)
+		$friends = $this->users_model->get_friends();
+		
+		// get interaction with each friend
+		foreach($friends as &$friend) {
+			// get last interaction
+			$last_interaction = $this->users_model->get_last_interaction($friend['id']);
+			array_shift($last_interaction); 
+			$friend = array_merge($friend, $last_interaction);
+			
+			// get total transaction amount
+			$friend['total'] = $this->users_model->get_amount_total($friend['id']);
+		}
+		$this->data['friends'] = $friends;
+		
 		$this->load->view('templates/base_header', $this->head);
 		$this->load->view('templates/nav_header', $this->head);
 		$this->load->view('main/home', $this->data);
@@ -36,8 +51,20 @@ class Main extends CI_Controller {
 		$this->load->view('templates/base_footer');
 	}
 	
-	public function summary()
+	public function summary($friend_id, $total)
 	{
+		// get a specific user/friend information
+		$friend = $this->users_model->get_friend($friend_id);
+		$this->data['friend'] = $friend;
+		$this->data['friend']['total'] = $total;
+		
+		// get all transactions from that friend
+		$transactions = $this->users_model->get_transactions($friend_id);
+		foreach($transactions as &$transaction) {
+			$transaction['Amount'] = $this->users_model->set_transaction_amount($transaction);
+		}
+		$this->data['transactions'] = $transactions;
+
 		$this->load->view('templates/base_header', $this->head);
 		$this->load->view('templates/nav_header', $this->head);
 		$this->load->view('main/summary', $this->data);
@@ -45,8 +72,29 @@ class Main extends CI_Controller {
 		$this->load->view('templates/base_footer');
 	}
 	
-	public function details()
+	public function details($id)
 	{
+		// get a specific transaction
+		$transaction = $this->users_model->get_transaction($id);
+		
+		// get a specific user/friend
+		if($transaction['Borrower'] != $this->session->userdata['user_id']) {
+			$friend_id = $transaction['Borrower'];
+		}
+		else {
+			$friend_id = $transaction['Lender'];
+		}
+		$this->data['friend'] = $this->users_model->get_friend($friend_id);
+		
+		if($transaction['Reporter'] == $friend_id) {
+			$transaction['Reporter'] = $this->data['friend']['username'];
+		}
+		else {
+			$transaction['Reporter'] = 'You';
+		}
+		$transaction['Amount'] = $this->users_model->set_transaction_amount($transaction);
+		$this->data['transaction'] = $transaction;
+		
 		$this->load->view('templates/base_header', $this->head);
 		$this->load->view('templates/nav_header', $this->head);
 		$this->load->view('main/details', $this->data);

@@ -1,12 +1,21 @@
 	<div data-role='content'>
 		
 		<ul data-role='listview'>
-			<?for($i=0; $i<10; $i++) {?>
+			<?foreach($friends as $friend) {?>
 			<li class='short_summary'>
-				<a href='/main/summary/'>
-					<div class='list_title'>First Last</div>
-					<div class='amount_owned'>You should collect $100.00</div>
-					<div class='information'>Last activity on Aug 06, 2012</div>
+				<a href='/main/summary/<?=$friend['id']?>/<?=$friend['total']?>'>
+					<div class='list_title'><?=$friend['username']?></div>
+					<div class='<?=($friend['total'] < 0)?'amount_owed':'amount_owned';?>'>
+						You should 
+						<?=($friend['total'] < 0) ?
+							'collect $'.money_format('%i', $friend['total']*-1) :
+							'return $'.money_format('%i', $friend['total']);?>
+					</div>
+					<div class='information'>
+						<?=isset($friend['Timestamp']) ?
+							'Last activity on '.$friend['Timestamp'] :
+							'No activity'?>
+					</div>
 				</a>
 			</li>
 			<?}?>

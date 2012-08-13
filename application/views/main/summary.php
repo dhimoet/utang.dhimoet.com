@@ -1,16 +1,28 @@
 	<div data-role='content'>
 		
 		<div class='content_header'>
-			<div>First Last</div>
-			<div class='amount_total amount_owned'>$500.00</div>
+			<div><?=$friend['username']?></div>
+			<div class='amount_total <?=($friend['total'] < 0)?'amount_owed':'amount_owned';?>'>$
+				<?if($friend['total'] < 0) {
+					echo money_format('%i', $friend['total'] * -1);
+				} else {
+					echo money_format('%i', $friend['total']);
+				}?>
+			</div>
 		</div>
 		<ul data-role='listview'>
-			<?for($i=0; $i<10; $i++) {?>
+			<?foreach($transactions as $transaction) {?>
 			<li class='short_summary'>
-				<a href='/main/details/'>
-					<div class='list_title'>Title</div>
-					<div class='information'>Aug 06, 2012</div>
-					<div class='list_amount amount_owned'>$100.00</div>
+				<a href='/main/details/<?=$transaction['id']?>'>
+					<div class='list_title'><?=$transaction['Title'];?></div>
+					<div class='information'><?=$transaction['Timestamp'];?></div>
+					<div class='list_amount <?=($transaction['Amount'] < 0)?'amount_owed':'amount_owned';?>'>$
+						<?if($transaction['Amount'] < 0) {
+							echo money_format('%i', $transaction['Amount'] * -1);
+						} else {
+							echo money_format('%i', $transaction['Amount']);
+						}?>
+					</div>
 				</a>
 			</li>
 			<?}?>

@@ -17,40 +17,51 @@ class Users_model extends CI_Model
 	
 	/**
 	 * Get an array of friends id's
+	 * This returns 0 for empty list
 	 */
 	public function get_friends_ids()
 	{
 		// get user id's from the 2nd column of the table
 		$my_id = $this->session->userdata['user_id'];
 		$this->db->select('UserID2 as id');
-		$query = $this->db->get_where('userrelationships', array('UserID1' => $my_id));
+		$this->db->where('Type', 'friend');
+		$this->db->where('UserID1', $my_id);
+		$query = $this->db->get('userrelationships');
 		$friend_ids = $query->result_array();
 		
 		// get user id's from the 2nd column of the table
 		$this->db->select('UserID1 as id');
-		$query = $this->db->get_where('userrelationships', array('UserID2' => $my_id));
+		$this->db->where('Type', 'friend');
+		$this->db->where('UserID2', $my_id);
+		$query = $this->db->get('userrelationships');
 		$friend_ids = array_merge($friend_ids, $query->result_array());
 		
-		// trim array
-		$friend_ids_ = array();
-		foreach($friend_ids as $friend) {
-			array_push($friend_ids_, $friend['id']);
+		if(empty($friend_ids)) {
+			return 0;
 		}
-
-		return $friend_ids_;
+		else {
+			// trim array
+			$friend_ids_ = array();
+			foreach($friend_ids as $friend) {
+				array_push($friend_ids_, $friend['id']);
+			}
+	
+			return $friend_ids_;
+		}
 	}
 	
 	/**
-	 * Get an array of friends informations
+	 * Get a object of friends informations
 	 */
 	public function get_friends($key = '')
 	{
-		$friends_ids = $this->get_friends_ids();		
+		$friends_ids = $this->get_friends_ids();
+				
 		// get friends information
 		$this->db->select('id, username, email');
 		$this->db->where_in('id', $friends_ids);
 		$query = $this->db->get('users');
-
+		
 		return $query->result_array();
 	}
 	
@@ -59,7 +70,7 @@ class Users_model extends CI_Model
 		$this->db->select('id, username, email');
 		$query = $this->db->get_where('users', array('id' => $id));
 		
-		return $query->row();
+		return $query->row_array();
 	}
 	
 	/**
@@ -119,7 +130,6 @@ class Users_model extends CI_Model
 	public function get_notifications()
 	{
 		$this->db->where('ReceiverId', $this->session->userdata['user_id']);
-		$this->db->where('Viewed', 0);
 		$query = $this->db->get('notifications');
 		
 		return $query->result_array();
@@ -127,8 +137,100 @@ class Users_model extends CI_Model
 	
 	public function clear_notifications()
 	{
-		echo 1; die;
 		$this->db->where('ReceiverId', $this->session->userdata['user_id']);
 		$this->db->update('notifications', array('Viewed' => 1));
+	}
+
+	public function get_amount_owed($friend_id)
+	{
+		$this->db->select_sum('Amount');
+		$this->db->where('Borrower', $this->session->userdata['user_id']);
+		$this->db->where('Lender', $friend_id);
+		$query = $this->db->get('transactions');
+		
+		return $query->row()->Amount;
+	}
+	
+	public function get_amount_owned($friend_id)
+	{
+		$this->db->select_sum('Amount');
+		$this->db->where('Lender', $this->session->userdata['user_id']);
+		$this->db->where('Borrower', $friend_id);
+		$query = $this->db->get('transactions');
+		
+		return $query->row()->Amount;
+	}
+	
+	public function get_amount_total($friend_id)
+	{
+		return $this->get_amount_owed($friend_id) - $this->get_amount_owned($friend_id);
+	}
+	
+	public function get_last_interaction($friend_id)
+	{
+		$result = $this->get_last_transaction_column($this->session->userdata['user_id'], $friend_id);
+		$result_ = $this->get_last_transaction_column($friend_id, $this->session->userdata['user_id']);
+		
+		// compare which one is the latest
+		// compare the ID's for now
+		if(empty($result)) {
+			$result['id'] = 0;
+		}
+		if(empty($result_)) {
+			$result_['id'] = 0;
+		}
+		
+		if($result['id'] > $result_['id']) {
+			return $result;
+		}
+		else {
+			return $result_;
+		}
+	}
+	
+	public function get_last_transaction_column($borrower, $lender)
+	{
+		$this->db->where('Borrower', $borrower);
+		$this->db->where('Lender', $lender);
+		$this->db->order_by('Timestamp', 'desc');
+		$query = $this->db->get('transactions', 1);
+		
+		return $query->row_array();
+	}
+	
+	public function get_transactions($friend_id = '')
+	{
+		$result = $this->get_transactions_column($this->session->userdata['user_id'], $friend_id);
+		$result_ = $this->get_transactions_column($friend_id, $this->session->userdata['user_id']);
+		$result = array_merge($result, $result_);
+		array_multisort($result, SORT_DESC);
+		
+		return $result;
+	}
+	
+	public function get_transactions_column($borrower, $lender)
+	{
+		$this->db->like('Borrower', $borrower);
+		$this->db->like('Lender', $lender);
+		$this->db->order_by('Timestamp', 'desc');
+		$query = $this->db->get('transactions', 10);
+		
+		return $query->result_array();
+	}
+	
+	public function get_transaction($id)
+	{
+		$query = $this->db->get_where('transactions', array('id' => $id));
+		
+		return $query->row_array();
+	}
+	
+	public function set_transaction_amount($transaction)
+	{
+		if($transaction['Lender'] == $this->session->userdata['user_id']) {
+			$transaction['Amount'] = (float)$transaction['Amount'] * -1;
+		}
+		
+		return $transaction['Amount'];
 	}
 }
