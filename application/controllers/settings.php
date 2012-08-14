@@ -48,7 +48,8 @@ class Settings extends CI_Controller {
 			$this->load->view('templates/base_header', $this->head);
 			$this->load->view('templates/nav_header', $this->head);
 			$this->load->view('settings/add_friend', $this->data);
-			$this->load->view('backbone_js');
+			$this->load->view('templates/overlay_template');
+			$this->load->view('backbone_js', $this->head['title']);
 			$this->load->view('templates/nav_footer');
 			$this->load->view('templates/base_footer');
 		}
@@ -59,6 +60,8 @@ class Settings extends CI_Controller {
 		$this->load->view('templates/base_header', $this->head);
 		$this->load->view('templates/nav_header', $this->head);
 		$this->load->view('settings/change_password', $this->data);
+		$this->load->view('templates/overlay_template');
+		$this->load->view('backbone_js', $this->head['title']);
 		$this->load->view('templates/nav_footer');
 		$this->load->view('templates/base_footer');
 	}

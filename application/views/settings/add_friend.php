@@ -1,6 +1,6 @@
 	<div data-role='content'>
 		
-		<form name='add_friend' action="/settings/add_friend/" method="post" id='add_friend' data-ajax="false">
+		<form name='add_friend' action="/settings/add_friend/?msg=0" method="post" id='add_friend' data-ajax="false">
 			
 			<div class='label'>Friend's Name:</div>
 			
@@ -29,15 +29,3 @@
 		
 	</div>
 
-	<script>
-		$(document).ready(function() {
-			/*** search for user names ***/
-			$('#name').keyup(function() {
-				if(!($('#name').val().length % 3) && $('#name').val().length) {
-					var key = $('#name').val();
-					// call backbone
-					var user_list = new UserListView(key);
-				}
-			});
-		});
-	</script>
