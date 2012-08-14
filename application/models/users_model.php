@@ -111,34 +111,58 @@ class Users_model extends CI_Model
 	/**
 	 * Store send friend request to database
 	 */
-	public function add_friend($id1, $id2)
+	public function set_relationship($id1, $id2, $type = 'friend_request', $status = 'active', $notification_id = 0)
 	{
 		$data = array(
 			'UserID1' => $id1,
 			'UserID2' => $id2,
-			'Type' => 'friend_request'
+			'Type' => $type
 		);
-		$this->db->insert('userrelationships', $data);
-		
-		// create a notification
-		$this->set_notification($id2, 'friend_request');
+		$data2 = array(
+			'UserID1' => $id2,
+			'UserID2' => $id1,
+			'Type' => $type
+		);
+		// check for existing entries
+		$query = $this->db->get_where('userrelationships', $data);
+		$query2 = $this->db->get_where('userrelationships', $data2);
+		if(!$query->num_rows() && !$query2->num_rows()) {
+			if($type == 'friend_request') {
+				$this->db->insert('userrelationships', $data);
+			}
+			else {
+				$this->db->where(array('UserID1' => $id1, 'UserID2' => $id2));
+				$this->db->update('userrelationships', $data);
+			}
+			
+			// create a notification
+			if($this->session->userdata['user_id'] == $id1) {
+				$to = $id2;
+			}
+			else {
+				$to = $id1;
+			}
+			$this->set_notification($to, $type, $status, $notification_id);
+		}
+		else {
+			// error message
+		}
 	}
 	
-	public function update_relationship($id1, $id2)
-	{
-		$this->db->where('UserID1', $id1);
-		$this->db->where('UserID2', $id2);
-		$this->db->update();
-	}
-	
-	public function set_notification($to, $type)
+	public function set_notification($to, $type, $status = 'active', $id)
 	{
 		$data = array(
 			'SenderId' => $this->session->userdata['user_id'],
 			'ReceiverId' => $to,
-			'Type' => $type
+			'Type' => $type,
+			'Status' => $status
 		);
 		$this->db->insert('notifications', $data);
+		
+		if($status == 'inactive') {
+			$this->db->where('id', $id);
+			$this->db->update('notifications', array('Status' => $status));
+		}
 	}
 	
 	public function get_notification_number()
@@ -160,6 +184,7 @@ class Users_model extends CI_Model
 	public function get_notifications()
 	{
 		$this->db->where('ReceiverId', $this->session->userdata['user_id']);
+		$this->db->order_by('id', 'desc');
 		$query = $this->db->get('notifications');
 		
 		return $query->result_array();

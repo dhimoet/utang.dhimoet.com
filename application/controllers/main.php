@@ -53,7 +53,7 @@ class Main extends CI_Controller {
 	
 	public function summary($friend_id = 0, $total = 0)
 	{
-		if($friend_id && $total) {
+		if($friend_id) {
 			// get a specific user/friend information
 			$friend = $this->users_model->get_friend($friend_id);
 			$this->data['friend'] = $friend;

@@ -9,13 +9,9 @@
 			username: "n/a",
 			email: "n/a",
 			photo: "/static/img/placeholder.gif"
-		}
-	});
-
-	var Notification = Backbone.Model.extend({
-		defaults: {
-			username: "n/a",
-			type: "added_transaction"
+		},
+		clear: function() {
+			this.destroy();
 		}
 	});
 
@@ -29,10 +25,7 @@
 			return '/ajax/get_users/';
 		}
 	});
-
-	var NotificationList = Backbone.Collection.extend({
-		model: Notification
-	});
+	var userList = new UserList;
 
 	/*** 
 	 * views 
@@ -41,31 +34,41 @@
 	var UserView = Backbone.View.extend({
 		tagName: "li",
 		className: "ui-li ui-li-static ui-body-c",
-		template: $('#user_template').html(),
+		template: _.template($('#user_template').html()),
+		events: {
+			"click a" : "updateInputText"
+		},
+		initialize: function() {
+			this.model.bind('change', this.render, this);
+			this.model.bind('destroy', this.remove, this);
+		},
 		render: function() {
-			var tmpl = _.template(this.template);
-			this.$el.html(tmpl(this.model.toJSON()));
+			this.$el.html(this.template(this.model.toJSON()));
 			return this;
+		},
+		updateInputText: function() {
+			$('#name').val(this.model.get('username'));
+			$('#email').val(this.model.get('email'));	
+		},
+		clear: function() {
+			this.model.clear();
 		}
 	});
 
 	var UserListView = Backbone.View.extend({
 		el: $('#user_list'),
 		initialize: function(key) {
-			this.collection = new UserList();
-			this.collection.fetch({
+			userList.fetch({
 				type: 'post',
 				data: {key:key}
 			});
-			this.collection.on('reset', this.render, this);
-			this.render();
+			userList.bind('reset', this.render, this);
 		},
 		render: function() {
 			var that = this;
 			// clear out this element
 			$(this.el).empty();
-			console.log(this.collection);
-			_.each(this.collection.models, function(item) {
+			_.each(userList.models, function(item) {
 				that.renderUser(item);
 			}, this);
 		},
@@ -76,43 +79,5 @@
 			this.$el.append(userView.render().el);
 		}
 	});
-
-	var NotificationView = Backbone.View.extend({
-		tagName: "li",
-		className: "ui-li ui-li-static ui-body-c",
-		template: $('#notification_template').html(),
-		render: function() {
-			var tmpl = _.template(this.template);
-			this.$el.html(tmpl(this.model.toJSON()));
-			return this;
-		}
-	});
-
-	var NotificationListView = Backbone.View.extend({
-		el: $('#notification_list'),
-		initialize: function() {
-			this.collection = new NotificationList(JSON.parse(data));
-			this.render();
-		},
-		render: function() {
-			var that = this;
-			_.each(this.collection.models, function(item) {
-				that.renderNotification(item);
-			}, this);
-		},
-		renderNotification: function(item) {
-			var notificationView = new NotificationView({
-				model: item
-			});
-			this.$el.append(notificationView.render().el);
-		}
-	});
-	
-	/*** 
-	 * syncs 
-	 * 
-	 * ***/
-	 
-	
 
 </script>

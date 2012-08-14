@@ -36,12 +36,6 @@ $(document).delegate("", "pageinit", function() {
 		}
 	});
 	
-	/*** copy a name to input text ***/
-	$('#user_list a').live('click', function() {
-		$('#name').val($(this).find('.list_title').text());
-		$('#email').val($(this).find('.information').text());	
-	});
-	
 	/*** bind submit nav button to the real button ***/
 	$('#submit').click(function() {
 		$('form').submit();

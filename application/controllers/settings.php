@@ -39,7 +39,7 @@ class Settings extends CI_Controller {
 			// store to database
 			$id1 = $this->session->userdata['user_id'];
 			$id2 = $this->users_model->get_id($this->input->post('email'));
-			$this->users_model->add_friend($id1, $id2);
+			$this->users_model->set_relationship($id1, $id2);
 			
 			redirect('/settings/', 'refresh');
 		}
@@ -95,10 +95,13 @@ class Settings extends CI_Controller {
 		$this->load->view('templates/base_footer');
 	}
 	
-	public function accept_friend($id)
+	public function respond_request($type, $notification_id, $friend_id)
 	{
 		// change the type on userrelationship table
+		$my_id = $this->session->userdata['user_id'];
+		$this->users_model->set_relationship($friend_id, $my_id, $type, 'inactive', $notification_id);
 		
+		redirect('/settings/', 'refresh');
 	}
 	
 	public function report_tool()
