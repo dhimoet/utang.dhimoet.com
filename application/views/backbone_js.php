@@ -167,6 +167,7 @@
 		var message = [
 			{ title: "Error!", content: "Your last action was not executed successfully."},
 			{ title: "Thank you!", content: "Your report has been sent and will be reviewed shortly."},
+			{ title: "Not found!", content: "The user you are looking for is not registered on our system."},
 		];
 		
 		/*** 

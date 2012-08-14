@@ -1,6 +1,6 @@
 	<div data-role='content'>
 		
-		<form name='add_friend' action="/settings/add_friend/?msg=0" method="post" id='add_friend' data-ajax="false">
+		<form name='add_friend' action="/settings/add_friend/?msg=2" method="post" id='add_friend' data-ajax="false">
 			
 			<div class='label'>Friend's Name:</div>
 			
