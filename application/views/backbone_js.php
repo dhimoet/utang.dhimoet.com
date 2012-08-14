@@ -143,8 +143,8 @@
 				var window_height = screen_height * 50/100;
 				
 				$('#overlay_container').show();
-				$('#overlay_window').css('top', (screen_height/2) - (window_height/2));
-				$('#overlay_window').css('left', (screen_width/2) - (window_width/2));
+				//$('#overlay_window').css('top', (screen_height/2) - (window_height/2));
+				//$('#overlay_window').css('left', (screen_width/2) - (window_width/2));
 			},
 			events: {
 				"click #overlay_ok_button" : "closeOverlay",

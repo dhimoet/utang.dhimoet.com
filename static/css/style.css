@@ -127,9 +127,10 @@ textarea {
 	z-index: 2010;
 	border-radius: 10px;
 	box-shadow: 5px 10px 10px #000000;
-	width: 300px;
+	width: 250px;
 	height: 250px;
 	padding: 20px;
+	margin: 100px;
 }
 
 #overlay_close_button {
