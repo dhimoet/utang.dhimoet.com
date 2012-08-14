@@ -139,7 +139,7 @@
 			openOverlay: function() {
 				var screen_width = $(window).width();
 				var screen_height = $(window).height();
-				var window_width = screen_width * 60/100;
+				var window_width = screen_width * 90/100;
 				var window_height = screen_height * 50/100;
 				var button_width = $('#overlay_ok_button').width();
 				
