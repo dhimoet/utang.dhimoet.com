@@ -51,6 +51,7 @@
 		 * views 
 		 * 
 		 * ***/
+		<?if($title == 'Add Friend') {?>
 		var UserView = Backbone.View.extend({
 			tagName: "li",
 			className: "ui-li ui-li-static ui-body-c",
@@ -99,7 +100,7 @@
 				this.$el.append(userView.render().el);
 			}
 		});
-		
+		<?}?>
 		/*******************/
 		
 		var OverlayView = Backbone.View.extend({
@@ -137,14 +138,7 @@
 				this.$el.append(overlayView.render().el);
 			},
 			openOverlay: function() {
-				var screen_width = $(window).width();
-				var screen_height = $(window).height();
-				var window_width = screen_width * 50/100;
-				var window_height = screen_height * 50/100;
-				
 				$('#overlay_container').show();
-				//$('#overlay_window').css('top', (screen_height/2) - (window_height/2));
-				//$('#overlay_window').css('left', (screen_width/2) - (window_width/2));
 			},
 			events: {
 				"click #overlay_ok_button" : "closeOverlay",
@@ -172,6 +166,7 @@
 		
 		var message = [
 			{ title: "Error!", content: "Your last action was not executed successfully."},
+			{ title: "Thank you!", content: "Your report has been sent and will be reviewed shortly."},
 		];
 		
 		/*** 

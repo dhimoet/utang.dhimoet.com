@@ -20,7 +20,6 @@ $(document).delegate("", "pageinit", function() {
 				data: {title : title, description : description},
 				success: function(data) {
 					if(data == "success") {
-						alert('The report has been submitted.');
 						return true;
 					}
 					else {
