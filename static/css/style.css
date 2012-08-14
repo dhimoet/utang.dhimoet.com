@@ -127,8 +127,8 @@ textarea {
 	z-index: 2010;
 	border-radius: 10px;
 	box-shadow: 5px 10px 10px #000000;
-	width: 80%;
-	height: 50%;
+	width: 300px;
+	height: 250px;
 	padding: 20px;
 }
 
@@ -151,7 +151,8 @@ textarea {
 
 #overlay_ok_button {
 	position: absolute;
+	left: 75px;
 	bottom: 20px;
 	z-index: 2015;
-	width: 50%;
+	width: 150px;
 }

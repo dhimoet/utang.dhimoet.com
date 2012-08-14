@@ -139,15 +139,12 @@
 			openOverlay: function() {
 				var screen_width = $(window).width();
 				var screen_height = $(window).height();
-				var window_width = screen_width * 90/100;
+				var window_width = screen_width * 50/100;
 				var window_height = screen_height * 50/100;
-				var button_width = $('#overlay_ok_button').width();
 				
 				$('#overlay_container').show();
-				$('#overlay_window').height(window_height);
 				$('#overlay_window').css('top', (screen_height/2) - (window_height/2));
 				$('#overlay_window').css('left', (screen_width/2) - (window_width/2));
-				$('#overlay_ok_button').css('left', window_width/4);
 			},
 			events: {
 				"click #overlay_ok_button" : "closeOverlay",
