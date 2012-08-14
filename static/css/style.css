@@ -130,7 +130,7 @@ textarea {
 	width: 250px;
 	height: 250px;
 	padding: 20px;
-	margin: 100px;
+	margin: 50px auto;
 }
 
 #overlay_close_button {
