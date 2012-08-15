@@ -26,7 +26,8 @@ class Fb extends CI_Controller {
 				'user_id' => $user_profile['id'],
 				'first_name' => $user_profile['first_name'],
 				'last_name' => $user_profile['last_name'],
-				'username' => $user_profile['username']
+				'username' => $user_profile['username'],
+				'email' => $user_profile['email']
 			);
 			
 			/*** create a new account if the user does not exist ***/
