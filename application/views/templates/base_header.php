@@ -7,6 +7,7 @@
 	
 	<title><?=$title?></title>
 	
+	<link href="/static/img/utangapp_web_logo.png" sizes="114x114" rel="apple-touch-icon">
 	<link rel="stylesheet" type="text/css" href="/static/css/style.css" />
 	<link rel="stylesheet" type="text/css" href="/static/css/validationEngine.jquery.css" />
 	<link rel="stylesheet" type="text/css" href="/static/css/add2home.css" />
