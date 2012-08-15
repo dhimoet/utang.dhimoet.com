@@ -2,7 +2,6 @@
   
 	<div data-theme='b' data-role='header' data-position='fixed'>
 		<h3>Login</h3>
-		<a href='/auth/create_user/' data-role='button' data-icon='plus'>Sign Up</a>
 	</div>
   
 	<div data-role='content'>
