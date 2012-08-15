@@ -44,7 +44,7 @@ class Facebook_model extends CI_Model
 				$url = "https://graph.facebook.com/{$user['user_id']}/feed";
 				$params = array(
 					'name' => 'UtangApp',
-					'message' => 'I have just signed up for UtangApp!',
+					'message' => 'I have just signed up for UtangApp. Join me!',
 					'link' => 'http://utang.dhimoet.com',
 					'description' => 'Everyone borrows and lends money all the time. Just enter the number here and let this app calculates and keep the records!', 
 				);
