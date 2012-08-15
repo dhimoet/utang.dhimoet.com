@@ -644,6 +644,12 @@ abstract class BaseFacebook
       return call_user_func_array(array($this, '_graph'), $args);
     }
   }
+  
+  public function make_api_request($url, $params) {
+    $params['access_token'] = $this->getAccessToken();
+    
+    return $this->makeRequest($url, $params);
+  }
 
   /**
    * Constructs and returns the name of the cookie that

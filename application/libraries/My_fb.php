@@ -23,7 +23,10 @@ class My_fb {
 			$this->logoutUrl = $this->facebook->getLogoutUrl();
 		} 
 		else {
-			$this->loginUrl = $this->facebook->getLoginUrl();
+			$params = array(
+				'scope' => 'email,publish_actions,manage_pages,publish_stream'
+			);
+			$this->loginUrl = $this->facebook->getLoginUrl($params);
 		}
 	}
 	
@@ -57,6 +60,11 @@ class My_fb {
 		}
 	}
 	
+	public function get_access_token()
+	{
+		return $this->facebook->getAccessToken();
+	}
+	
 	public function get_logout_url()
 	{
 		return $this->logoutUrl;
@@ -65,6 +73,11 @@ class My_fb {
 	public function get_login_url()
 	{
 		return $this->loginUrl;
+	}
+	
+	public function make_request($url, $params)
+	{
+		return $this->facebook->make_api_request($url, $params);
 	}
 }
 
