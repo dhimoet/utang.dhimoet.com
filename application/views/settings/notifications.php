@@ -6,7 +6,7 @@
 				<?if($notification['Type'] == 'friend_request') {
 					$url = "/settings/friend_request/{$notification['id']}/{$notification['friend']['id']}";
 				} elseif($notification['Type'] == 'added_transaction') {
-					$url = '/main/details/';
+					$url = '/main/details/'.$notification['TransactionId'];
 				} else {
 					$url = 'javascript:void(0)';
 				}?>

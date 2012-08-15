@@ -69,7 +69,7 @@ class Settings extends CI_Controller {
 	public function notifications()
 	{
 		$notifications = $this->users_model->get_notifications();
-		//$this->data['friend'] = $this->users_model->get_friend($notif['SenderId']);
+		
 		foreach($notifications as &$notification) {
 			$notification['friend'] = $this->users_model->get_friend($notification['SenderId']);
 		}

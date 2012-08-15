@@ -47,6 +47,8 @@ class Main extends CI_Controller {
 		$this->load->view('templates/base_header', $this->head);
 		$this->load->view('templates/nav_header', $this->head);
 		$this->load->view('main/home', $this->data);
+		$this->load->view('templates/overlay_template');
+		$this->load->view('backbone_js', $this->head['title']);
 		$this->load->view('templates/nav_footer');
 		$this->load->view('templates/base_footer');
 	}
@@ -143,11 +145,28 @@ class Main extends CI_Controller {
 	
 	public function add_transaction()
 	{
-		$this->load->view('templates/base_header', $this->head);
-		$this->load->view('templates/nav_header', $this->head);
-		$this->load->view('main/add_transaction', $this->data);
-		$this->load->view('templates/nav_footer');
-		$this->load->view('templates/base_footer');
+		$this->form_validation->set_rules('add_transaction[amount]', 'Amount', 'required');
+		$this->form_validation->set_rules('add_transaction[title]', 'Title', 'required');
+		
+		if ($this->form_validation->run() == true) {
+			$transaction = $this->input->post('add_transaction');
+			// store to database
+			$this->users_model->save_transaction($transaction);
+
+			redirect('/main/home/?msg=3', 'refresh');
+		}
+		else {
+			// get a list of friends
+			$this->data['friends'] = $this->users_model->get_friends();
+		
+			$this->load->view('templates/base_header', $this->head);
+			$this->load->view('templates/nav_header', $this->head);
+			$this->load->view('main/add_transaction', $this->data);
+			$this->load->view('templates/overlay_template');
+			$this->load->view('backbone_js', $this->head['title']);
+			$this->load->view('templates/nav_footer');
+			$this->load->view('templates/base_footer');
+		}
 	}
 }
 

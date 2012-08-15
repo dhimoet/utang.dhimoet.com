@@ -6,10 +6,9 @@
 			
 			<div>
 				<select name="add_transaction[user]" id="user">
-					<option value='First Last'>First Last</option>
-					<option value='First Last'>First Last</option>
-					<option value='First Last'>First Last</option>
-					<option value='First Last'>First Last</option>
+					<?foreach($friends as $friend) {?>
+					<option value='<?=$friend['id'];?>'><?=$friend['username'];?></option>
+					<?}?>
 				</select>
 			</div>
 			
@@ -24,7 +23,7 @@
 				</div>
 				<div class="ui-block-b amount_input">  
 					<label for='add_transaction[amount]'>$</label>
-					<input type="text" name="add_transaction[amount]" id="amount" class="validate[required,custom[number]]" placeholder="0.00" />
+					<input type="text" name="add_transaction[amount]" id="amount" class="validate[required,custom[money]]" placeholder="0.00" />
 				</div>
 			</div>
 			

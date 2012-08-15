@@ -64,12 +64,18 @@
 				this.model.bind('destroy', this.remove, this);
 			},
 			render: function() {
-				this.$el.html(this.template(this.model.toJSON()));
+				var user = this.model.toJSON();
+				var username = this.getFbUsername(user);
+				this.$el.html(this.template(user));
+				this.model.set('photo', 'http://graph.facebook.com/'+username+'/picture');
 				return this;
 			},
 			updateInputText: function() {
 				$('#name').val(this.model.get('username'));
 				$('#email').val(this.model.get('email'));	
+			},
+			getFbUsername: function(user) {
+				return user.email.replace('@facebook.com', ''); 
 			},
 			clear: function() {
 				this.model.clear();
@@ -168,6 +174,7 @@
 			{ title: "Error!", content: "Your last action was not executed successfully."},
 			{ title: "Thank you!", content: "Your report has been sent and will be reviewed shortly."},
 			{ title: "Not found!", content: "The user you are looking for is not registered on our system."},
+			{ title: "Saved!", content: "The transaction has been saved. Your friend will be notified on his/her notification page."},
 		];
 		
 		/*** 

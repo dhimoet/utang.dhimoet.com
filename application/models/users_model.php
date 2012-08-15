@@ -67,7 +67,7 @@ class Users_model extends CI_Model
 	}
 	
 	/**
-	 * Get a object of friends informations
+	 * Get an array of friends informations
 	 */
 	public function get_friends($key = '')
 	{
@@ -149,7 +149,7 @@ class Users_model extends CI_Model
 		}
 	}
 	
-	public function set_notification($to, $type, $status = 'active', $id)
+	public function set_notification($to, $type, $status = 'active', $id = 0)
 	{
 		$data = array(
 			'SenderId' => $this->session->userdata['user_id'],
@@ -157,6 +157,9 @@ class Users_model extends CI_Model
 			'Type' => $type,
 			'Status' => $status
 		);
+		if($status == 'active' && $type == 'added_transaction') {
+			$data['TransactionId'] = $id;
+		}
 		$this->db->insert('notifications', $data);
 		
 		if($status == 'inactive') {
@@ -287,6 +290,34 @@ class Users_model extends CI_Model
 		}
 		
 		return $transaction['Amount'];
+	}
+	
+	public function save_transaction(Array $transaction)
+	{
+		$my_id = $this->session->userdata['user_id'];
+		
+		if($transaction['action'] == 'I gave') {
+			$borrower = $transaction['user'];
+			$lender = $my_id;
+		}
+		else if($transaction['action'] == 'I received') {
+			$borrower = $my_id;
+			$lender = $transaction['user'];
+		}
+		
+		// store to database
+		$data = array(
+			'Borrower' => $borrower,
+			'Lender' => $lender,
+			'Amount' => $transaction['amount'],
+			'Title' => $transaction['title'],
+			'Description' => $transaction['description'],
+			'Reporter' => $my_id
+		);
+		$this->db->insert('transactions', $data);
+		
+		// set notification
+		$this->set_notification($transaction['user'], 'added_transaction', 'active', $this->db->insert_id());
 	}
 	
 	public function get_logout_url()

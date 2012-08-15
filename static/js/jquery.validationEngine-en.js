@@ -94,6 +94,11 @@
                     "regex": /^[\-\+]?(([0-9]{1,3})([\.]([0-9]{3}))*([,]([0-9]+))?|([0-9]+)?([,]([0-9]+))?)$/,
                     "alertText": "* Invalid floating decimal number"
                 },
+                "money": {
+                    // money format
+                    "regex": /^([0-9]+)([\.][0-9]+)?$/,
+                    "alertText": "* Invalid money format"
+                },
                 "date": {
                     "regex": /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/,
                     "alertText": "* Invalid date, must be in YYYY-MM-DD format"
