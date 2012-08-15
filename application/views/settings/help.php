@@ -19,7 +19,7 @@
 			</li>
 			
 			<li>
-				You can check the notification page to see all related activities from your friends.
+				You can check the notification page to see all notifications from your friends' activities.
 			</li>
 			
 			<li>
@@ -28,6 +28,10 @@
 			
 			<li>
 				At history page, you can see all the activities from all of your friends.
+			</li>
+			
+			<li>
+				After you add an icon to your homescreen, sometimes the app keeps asking you to login which results on you are being transferred back to the regular browser. Try to add a new icon after you are successfully logged in using Safari.
 			</li>
 			
 			<li>
