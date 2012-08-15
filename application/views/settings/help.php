@@ -31,7 +31,7 @@
 			</li>
 			
 			<li>
-				<strong>Please submit a report for any bugs or complaints related to this app by choosing "Report to Developer" on settings page.</strong>
+				<strong>Please submit a report for any questions, bugs, or complaints related to this app by choosing "Report to Developer" on settings page.</strong>
 			</li>
 
 		</ol>
