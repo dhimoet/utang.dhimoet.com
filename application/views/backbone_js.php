@@ -65,7 +65,7 @@
 			},
 			render: function() {
 				var user = this.model.toJSON();
-				var username = this.getFbUsername(user);
+				var username = user.facebook_username;
 				this.$el.html(this.template(user));
 				this.model.set('photo', 'http://graph.facebook.com/'+username+'/picture');
 				return this;
@@ -73,9 +73,6 @@
 			updateInputText: function() {
 				$('#name').val(this.model.get('username'));
 				$('#email').val(this.model.get('email'));	
-			},
-			getFbUsername: function(user) {
-				return user.email.replace('@facebook.com', ''); 
 			},
 			clear: function() {
 				this.model.clear();

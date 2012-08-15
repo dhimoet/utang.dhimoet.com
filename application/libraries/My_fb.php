@@ -24,7 +24,7 @@ class My_fb {
 		} 
 		else {
 			$params = array(
-				'scope' => 'email,publish_actions,manage_pages,publish_stream'
+				'scope' => 'email,publish_actions,publish_stream'
 			);
 			$this->loginUrl = $this->facebook->getLoginUrl($params);
 		}

@@ -74,7 +74,7 @@ class Users_model extends CI_Model
 		$friends_ids = $this->get_friends_ids();
 				
 		// get friends information
-		$this->db->select('id, username, email');
+		$this->db->select('id, username, email, facebook_username');
 		$this->db->where_in('id', $friends_ids);
 		$query = $this->db->get('users');
 		
@@ -83,7 +83,7 @@ class Users_model extends CI_Model
 	
 	public function get_friend($id)
 	{
-		$this->db->select('id, username, email');
+		$this->db->select('id, username, email, facebook_username');
 		$query = $this->db->get_where('users', array('id' => $id));
 		
 		return $query->row_array();
@@ -95,7 +95,7 @@ class Users_model extends CI_Model
 	public function get_not_friends($key = '')
 	{
 		$friends_ids = $this->get_friends_ids();		
-		$this->db->select('id, username, email');
+		$this->db->select('id, username, email, facebook_username');
 		$this->db->like('username', $key);
 		$this->db->where('id !=', $this->session->userdata['user_id']);
 		if(!empty($friends_ids)) {

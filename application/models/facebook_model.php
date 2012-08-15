@@ -30,7 +30,7 @@ class Facebook_model extends CI_Model
 		{
 			$username = $user['first_name'] .' '. $user['last_name'];
 			$password = generatePassword($user);
-			$email = isset($user['email'])?$user['email']:$user['username'] . '@facebook.com';
+			$email = isset($user['email']) ? $user['email'] : $user['username'].'@facebook.com';
 			$additional_data = $additional_data = array(
 				'first_name' => $user['first_name'],
 				'last_name'  => $user['last_name'],
@@ -102,7 +102,11 @@ class Facebook_model extends CI_Model
 			return true;
 		}
 		// compare username
-		if($stored_user['username'] != $user['username']) {
+		if($stored_user['username'] != $user['first_name'].' '.$user['last_name']) {
+			return true;
+		}
+		// compare facebook username
+		if($stored_user['facebook_username'] != $user['username']) {
 			return true;
 		}
 
@@ -110,14 +114,13 @@ class Facebook_model extends CI_Model
 	}
 	
 	public function update_user($user)
-	{
-		$email    = $user['username'] . '@facebook.com';
-		
+	{		
 		$data = array(
 			'first_name' => $user['first_name'],
 			'last_name' => $user['last_name'],
 			'username' => $user['first_name'] .' '. $user['last_name'],
-			'email' => $user['username'] . '@facebook.com',
+			'email' => $user['email'],
+			'facebook_username' => $user['username'],
 		);
 		
 		$this->db->where('facebook_user_id', $user['user_id']);
