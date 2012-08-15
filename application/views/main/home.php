@@ -4,7 +4,7 @@
 			<?foreach($friends as $friend) {?>
 			<li class='short_summary'>
 				<a href='/main/summary/<?=$friend['id']?>/<?=$friend['total']?>'>
-					<img src="http://graph.facebook.com/<?=$friend['username']?>/picture" />
+					<img src="http://graph.facebook.com/<?=str_replace('@facebook.com', '', $friend['email'])?>/picture" />
 					<div class='list_title'><?=$friend['username']?></div>
 					<div class='<?=($friend['total'] < 0)?'amount_owed':'amount_owned';?>'>
 						You should 
