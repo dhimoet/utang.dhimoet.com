@@ -21,7 +21,6 @@ class Legal extends CI_Controller {
 		$this->load->view('templates/base_header', $this->head);
 		$this->load->view('templates/nav_header');
 		$this->load->view('legal/terms');
-		$this->load->view('templates/nav_footer');
 		$this->load->view('templates/base_footer');
 	}
 	
@@ -30,7 +29,6 @@ class Legal extends CI_Controller {
 		$this->load->view('templates/base_header', $this->head);
 		$this->load->view('templates/nav_header');
 		$this->load->view('legal/privacy');
-		$this->load->view('templates/nav_footer');
 		$this->load->view('templates/base_footer');
 	}
 }

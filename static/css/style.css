@@ -87,6 +87,10 @@ textarea {
 	padding: 5px;
 }
 
+.terms_policy li {
+	padding: 5px;
+}
+
 #user_list {
 	margin: 20px -15px !important;
 }
