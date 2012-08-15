@@ -82,6 +82,11 @@ textarea {
 	right: 20px;
 }
 
+.profile_picture {
+	width: 78px;
+	padding: 5px;
+}
+
 #user_list {
 	margin: 20px -15px !important;
 }
