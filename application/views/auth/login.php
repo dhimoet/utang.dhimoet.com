@@ -26,10 +26,9 @@
 		<div class="fb-like top_20" 
 			data-href="http://utang.dhimoet.com" 
 			data-send="false" 
-			data-layout="box_count" 
 			data-width="450" 
 			data-show-faces="true" 
-			data-action="recommend" 
+			data-action="like" 
 			data-font="verdana">
 		</div>
 
