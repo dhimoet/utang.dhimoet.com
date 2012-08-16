@@ -118,7 +118,7 @@ class Main extends CI_Controller {
 				'Amount' => 0,
 				'Timestamp' => '0000-00-00 00:00:00',
 				'Title' => '',
-				'Description' => 'We received incorrect data and was unable to process it',
+				'Description' => 'We received incorrect data and were unable to process it',
 				'Reporter' => ''
 			);
 		}
