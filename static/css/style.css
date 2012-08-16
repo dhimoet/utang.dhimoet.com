@@ -97,6 +97,10 @@ textarea {
 	padding: 5px;
 }
 
+.fb-like {
+	font-size: 10px !important;
+}
+
 #user_list {
 	margin: 20px -15px !important;
 }
