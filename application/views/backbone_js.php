@@ -1,10 +1,10 @@
 <script type="text/javascript">
-	(function($){
+(function($){
 
-		/***
-		 *  models 
-		 * 
-		 * ***/
+	<? if($title == 'Add Friend') {?> //---------------------- add_friend
+		 
+		/*** model ***/
+		
 		var User = Backbone.Model.extend({
 			defaults: {
 				username: "n/a",
@@ -16,22 +16,8 @@
 			}
 		});
 		
-		/*******************/
+		/*** collection ***/
 		
-		var OverlayModel = Backbone.Model.extend({
-			defaults: {
-				title: "Error",
-				content: "Your last action was not executed successfully."
-			},
-			clear: function() {
-				this.destroy();
-			}
-		});
-
-		/*** 
-		 * collections 
-		 * 
-		 * ***/
 		var UserList = Backbone.Collection.extend({
 			model: User,
 			url: function() {
@@ -40,18 +26,8 @@
 		});
 		var userList = new UserList;
 		
-		/*******************/
+		/*** views ***/
 		
-		var OverlayCollection = Backbone.Collection.extend({
-			model: OverlayModel
-		});
-		//var overlay = new OverlayCollection;
-
-		/*** 
-		 * views 
-		 * 
-		 * ***/
-		<?if($title == 'Add Friend') {?>
 		var UserView = Backbone.View.extend({
 			tagName: "li",
 			className: "ui-li ui-li-static ui-body-c",
@@ -103,8 +79,37 @@
 				this.$el.append(userView.render().el);
 			}
 		});
-		<?}?>
-		/*******************/
+		
+		$(document).ready(function() {
+			/*** search for user names ***/
+			$('#name').keyup(function() {
+				if(!($('#name').val().length % 3) && $('#name').val().length) {
+					var key = $('#name').val();
+					// call backbone
+					var user_list = new UserListView(key);
+				}
+			});
+		});
+		
+	<?} if(isset($_GET['msg'])) {?> //---------------------- any pages with $_GET['msg'] set
+		
+		/*** model ***/
+		
+		var OverlayModel = Backbone.Model.extend({
+			defaults: {
+				title: "Error",
+				content: "Your last action was not executed successfully."
+			},
+			clear: function() {
+				this.destroy();
+			}
+		});
+		
+		/*** collection ***/
+		
+		var OverlayCollection = Backbone.Collection.extend({
+			model: OverlayModel
+		});
 		
 		var OverlayView = Backbone.View.extend({
 			tagName: "div",
@@ -120,6 +125,8 @@
 				this.model.clear();
 			}
 		});
+		
+		/*** views ***/
 		
 		var OverlayWhole = Backbone.View.extend({
 			el: $('#overlay_container'),
@@ -162,40 +169,23 @@
 			},
 		});
 		
-		/*** 
-		 * local storage 
-		 * 
-		 * ***/
+		/*** local storage ***/
 		
 		var message = [
 			{ title: "Error!", content: "Your last action was not executed successfully."},
 			{ title: "Thank you!", content: "Your report has been sent and will be reviewed shortly."},
 			{ title: "Not found!", content: "The user you are looking for is not registered on our system."},
 			{ title: "Saved!", content: "The transaction has been saved. Your friend will be notified on his/her notification page."},
+			{ title: "Sent!", content: "Your message has been written to your Facebook newsfeed."},
 		];
 		
-		/*** 
-		 * executions 
-		 * 
-		 * ***/
+		/*** execute ***/
 		
-		<?if(isset($_GET['msg'])) {?> 
-			var overlay_show = new OverlayWhole(<?=$_GET['msg'];?>);
-		<?}?>
+		var overlay_show = new OverlayWhole(<?=$_GET['msg'];?>);
 		
-		<?if($title == 'Add Friend') {?>
-		$(document).ready(function() {
-			/*** search for user names ***/
-			$('#name').keyup(function() {
-				if(!($('#name').val().length % 3) && $('#name').val().length) {
-					var key = $('#name').val();
-					// call backbone
-					var user_list = new UserListView(key);
-				}
-			});
-		});
-		<?}?>
-	} (jQuery));
+	<?}?>	
+
+} (jQuery));
 
 	
 	

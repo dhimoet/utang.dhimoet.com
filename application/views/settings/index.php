@@ -1,11 +1,5 @@
 	<div data-role='content'>
 		
-		<?if(isset($_GET['msg'])) {?>
-		<ul data-role='listview'>
-			<li><?=$_GET['msg'];?></li>
-		</ul>
-		<?}?>
-		
 		<ul data-role='listview' data-inset='true'>
 			
 			<li>

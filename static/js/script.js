@@ -10,6 +10,7 @@ $(document).delegate("", "pageinit", function() {
 	$('form[name="update_status"]').validationEngine('attach', {promptPosition : "bottomLeft", scroll: false});
 	
 	/*** send email ***/
+	/*** OLD
 	$('form[name="report_tool"]').submit(function() {
 		if($('form[name="report_tool"]').validationEngine('validate')) {
 			var title = $('#title').val();
@@ -35,6 +36,7 @@ $(document).delegate("", "pageinit", function() {
 			});
 		}
 	});
+	*/
 	
 	/*** bind submit nav button to the real button ***/
 	$('#submit').click(function() {

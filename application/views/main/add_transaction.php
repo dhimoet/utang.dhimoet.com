@@ -1,11 +1,11 @@
 	<div data-role='content'>
 		
-		<form name='add_transaction' action="/main/add_transaction/" method="post" id='add_transaction' data-ajax="false">
+		<form name='add_transaction' action="/main/add_transaction/?msg=0" method="post" id='add_transaction' data-ajax="false">
 		
 			<div class='details_label'>Transaction with:</div>
 			
 			<div>
-				<select name="add_transaction[user]" id="user">
+				<select name="add_transaction[user]" id="user" class="validate[required]">
 					<?foreach($friends as $friend) {?>
 					<option value='<?=$friend['id'];?>'><?=$friend['username'];?></option>
 					<?}?>

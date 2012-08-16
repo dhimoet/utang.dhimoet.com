@@ -1,6 +1,6 @@
 	<div data-role='content'>
 		
-		<form name='update_status' action="/settings/update_status/?msg=1" method="post" data-ajax="false">
+		<form name='update_status' action="/settings/update_status/?msg=0" method="post" data-ajax="false">
 			
 			<div class='label'>Message:</div>
 			

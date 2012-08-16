@@ -23,9 +23,16 @@ class Settings extends CI_Controller {
 	
 	public function index()
 	{
+		$this->settings();
+	}
+	
+	public function settings()
+	{
 		$this->load->view('templates/base_header', $this->head);
 		$this->load->view('templates/nav_header', $this->head);
 		$this->load->view('settings/index', $this->data);
+		$this->load->view('templates/overlay_template');
+		$this->load->view('backbone_js', $this->head['title']);
 		$this->load->view('templates/nav_footer');
 		$this->load->view('templates/base_footer');
 	}
@@ -61,21 +68,20 @@ class Settings extends CI_Controller {
 		
 		if ($this->form_validation->run() == true) {
 			// post to facebook
-			$url = "https://graph.facebook.com/{$this->my_fb->get_user()}/feed";
+			$uid = $this->users_model->get_facebook_uid($this->session->userdata['user_id']);
+			$url = "https://graph.facebook.com/{$uid}/feed";
 			$params = array(
-				'name' => 'UtangApp',
 				'message' => $this->input->post('message'),
-				'picture' => 'http://utang.dhimoet.com/static/img/utangapp_web_logo.png',
-				'link' => 'http://utang.dhimoet.com',
-				'description' => 'Everyone borrows and lends money all the time. Just enter the number here and let this app calculate and keep the records!', 
 			);
 			$this->my_fb->make_request($url, $params);
-			redirect('/settings/', 'refresh');
+			redirect('/settings/settings/?msg=4', 'refresh');
 		}
 		else {
 			$this->load->view('templates/base_header', $this->head);
 			$this->load->view('templates/nav_header', $this->head);
 			$this->load->view('settings/update_status', $this->data);
+			$this->load->view('backbone_js', $this->head['title']);
+			$this->load->view('templates/nav_footer');
 			$this->load->view('templates/nav_footer');
 			$this->load->view('templates/base_footer');
 		}
@@ -135,13 +141,34 @@ class Settings extends CI_Controller {
 	
 	public function report_tool()
 	{
-		$this->load->view('templates/base_header', $this->head);
-		$this->load->view('templates/nav_header', $this->head);
-		$this->load->view('settings/report_tool', $this->data);
-		$this->load->view('templates/overlay_template');
-		$this->load->view('backbone_js', $this->head['title']);
-		$this->load->view('templates/nav_footer');
-		$this->load->view('templates/base_footer');
+		$this->form_validation->set_rules('title', 'Title', 'required');
+		$this->form_validation->set_rules('description', 'Description', 'required');
+		
+		if ($this->form_validation->run() == true) {
+			$from = array(
+				'name' => $this->session->userdata['username'],
+				'address' => $this->session->userdata['email']
+			);
+			$email = array(
+				'title' => $this->input->post('title'),
+				'description' => $this->input->post('description')
+			);
+			
+			// send email to admin
+			if($this->email_model->send_admin($from, $email)) {
+				redirect('/settings/settings/?msg=1', 'refresh');
+			}
+			else {
+				redirect('/settings/settings/?msg=0', 'refresh');
+			}
+		}
+		else {
+			$this->load->view('templates/base_header', $this->head);
+			$this->load->view('templates/nav_header', $this->head);
+			$this->load->view('settings/report_tool', $this->data);
+			$this->load->view('templates/nav_footer');
+			$this->load->view('templates/base_footer');
+		}
 	}
 	
 	public function help()

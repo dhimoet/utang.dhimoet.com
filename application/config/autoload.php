@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('database', 'session', 'ion_auth', 'form_validation', 'my_fb');
+$autoload['libraries'] = array('database', 'session', 'ion_auth', 'form_validation', 'my_fb', 'email');
 
 
 /*
@@ -109,7 +109,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('facebook_model', 'users_model');
+$autoload['model'] = array('facebook_model', 'users_model', 'email_model');
 
 
 /* End of file autoload.php */

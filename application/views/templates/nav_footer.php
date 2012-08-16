@@ -13,7 +13,7 @@ $(document).ready(function() {
 				data-iconpos='top' style='width:33%'>Home</a>
 			<a href="/main/history/" data-role="button" data-icon="star" 
 				data-iconpos='top' style='width:33%'>History</a>
-			<a href="/settings/index/" data-role="button" data-icon="gear" 
+			<a href="/settings/settings/" data-role="button" data-icon="gear" 
 				data-iconpos='top' style='width:33%' id='settings'>Settings</a>
 		</div>
 	</div>

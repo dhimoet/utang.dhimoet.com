@@ -145,6 +145,7 @@ class Main extends CI_Controller {
 	
 	public function add_transaction()
 	{
+		$this->form_validation->set_rules('add_transaction[user]', 'User', 'required');
 		$this->form_validation->set_rules('add_transaction[amount]', 'Amount', 'required');
 		$this->form_validation->set_rules('add_transaction[title]', 'Title', 'required');
 		

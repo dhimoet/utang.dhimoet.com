@@ -1,6 +1,6 @@
 	<div data-role='content'>
 		
-		<form name='report_tool' action="/settings/report_tool/?msg=1" method="post" data-ajax="false">
+		<form name='report_tool' action="/settings/report_tool/" method="post" data-ajax="false">
 			
 			<div class='label'>Title:</div>
 			
