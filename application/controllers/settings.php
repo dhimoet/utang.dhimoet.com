@@ -87,6 +87,7 @@ class Settings extends CI_Controller {
 		}
 	}
 	
+	/*** OLD
 	public function change_password()
 	{
 		$this->load->view('templates/base_header', $this->head);
@@ -97,6 +98,7 @@ class Settings extends CI_Controller {
 		$this->load->view('templates/nav_footer');
 		$this->load->view('templates/base_footer');
 	}
+	*/
 	
 	public function notifications()
 	{

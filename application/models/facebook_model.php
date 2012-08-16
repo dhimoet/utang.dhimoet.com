@@ -128,6 +128,7 @@ class Facebook_model extends CI_Model
 		$this->db->update('users', $data);
 	}
 	
+	/*** OLD
 	public function get_user_type($user)
 	{
 		$this->db->select('email');
@@ -137,4 +138,5 @@ class Facebook_model extends CI_Model
 		
 		return $domain[1];
 	}
+	*/
 }

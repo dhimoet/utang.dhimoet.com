@@ -10,6 +10,12 @@ textarea {
 	font-size: 18px !important;
 }
 
+
+.centered {
+	text-align: center;
+	margin: auto;
+}
+
 .top_20 {
 	margin-top: 20px;
 }

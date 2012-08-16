@@ -1,10 +1,19 @@
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <div data-role='page' data-title='login' id='login'>
   
 	<div data-theme='b' data-role='header' data-position='fixed'>
 		<h3>Login</h3>
 	</div>
   
-	<div data-role='content'>
+	<div data-role='content' class='centered'>
 		
 		<div class="bottom_40 top_40">
 			
@@ -13,6 +22,16 @@
 		</div>
 	
 		<hr />
+		
+		<div class="fb-like" 
+			data-href="http://utang.dhimoet.com" 
+			data-send="false" 
+			data-layout="box_count" 
+			data-width="450" 
+			data-show-faces="true" 
+			data-action="recommend" 
+			data-font="verdana">
+		</div>
 
 	</div><!-- content container -->
   
