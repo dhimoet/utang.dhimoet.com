@@ -99,6 +99,7 @@ textarea {
 
 .fb-like {
 	font-size: 10px !important;
+	overflow: scroll;
 }
 
 #user_list {
