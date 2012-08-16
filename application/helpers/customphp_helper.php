@@ -18,7 +18,7 @@ function friendly_date($timestamp)
 
 function friendly_date_time($timestamp)
 {
-	return date_format(date_create($timestamp), 'M d, Y \a\t H:i');
+	return date_format(date_create($timestamp), 'M d, Y \a\t g:i A');
 }
 
 /* Location: application/helpers/customphp.php */ 

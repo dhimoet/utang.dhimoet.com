@@ -37,6 +37,10 @@
 			<li>
 				<strong>Please submit a report for any questions, bugs, or complaints related to this app by choosing "Report to Developer" on settings page.</strong>
 			</li>
+			
+			<li>
+				<strong>For everyone's convenience, all transactions entered go through automatically without the second party's approval. As mentioned on our Terms and Conditions, we are not responsible for any loss caused by false input.</strong>
+			</li>
 
 		</ol>
 		

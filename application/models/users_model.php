@@ -89,6 +89,25 @@ class Users_model extends CI_Model
 		return $query->row_array();
 	}
 	
+	public function is_friend($friend_id)
+	{
+		$condition1 = array(
+			'Type' => 'friend',
+			'UserID1' => $this->session->userdata['user_id'],
+			'UserID2' => $friend_id,
+		);
+		$condition2 = array(
+			'Type' => 'friend',
+			'UserID1' => $friend_id,
+			'UserID2' => $this->session->userdata['user_id'],
+		);
+		
+		$query1 = $this->db->get_where('userrelationships', $condition1);
+		$query2 = $this->db->get_where('userrelationships', $condition2);
+		
+		return $query1->num_rows() + $query2->num_rows();
+	}
+	
 	/**
 	 * Get an array of not friends
 	 */

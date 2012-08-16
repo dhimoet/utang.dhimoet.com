@@ -55,7 +55,7 @@ class Main extends CI_Controller {
 	
 	public function summary($friend_id = 0, $total = 0)
 	{
-		if($friend_id) {
+		if($friend_id && $this->users_model->is_friend($friend_id)) {
 			// get a specific user/friend information
 			$friend = $this->users_model->get_friend($friend_id);
 			$this->data['friend'] = $friend;
@@ -70,7 +70,7 @@ class Main extends CI_Controller {
 		}
 		else {
 			$this->data['friend'] = array(
-				'username' => '',
+				'username' => 'User not found!',
 				'total' => 0,
 			);
 			$this->data['transactions'] = array();
@@ -83,19 +83,22 @@ class Main extends CI_Controller {
 		$this->load->view('templates/base_footer');
 	}
 	
-	public function details($id = 0)
+	public function details($id = 0, $friend_id = 0)
 	{
-		if($id) {
-			// get a specific transaction
-			$transaction = $this->users_model->get_transaction($id);
+		// get a specific transaction
+		$transaction = $this->users_model->get_transaction($id);
+		
+		// match the parameters with the entry from database
+		if(!empty($transaction) && ($transaction['Borrower'] == $friend_id || $transaction['Lender'] == $friend_id)) {
+			$is_valid = true;
+		}
+		else {
+			$is_valid = false;
+		}
+		
+		if(!empty($transaction) && $is_valid && $this->users_model->is_friend($friend_id)) {
 			
-			// get a specific user/friend
-			if($transaction['Borrower'] != $this->session->userdata['user_id']) {
-				$friend_id = $transaction['Borrower'];
-			}
-			else {
-				$friend_id = $transaction['Lender'];
-			}
+
 			$this->data['friend'] = $this->users_model->get_friend($friend_id);
 			
 			if($transaction['Reporter'] == $friend_id) {
@@ -109,13 +112,13 @@ class Main extends CI_Controller {
 		}
 		else {
 			$this->data['friend'] = array(
-				'username' => '',
+				'username' => 'Data Error!',
 			);
 			$this->data['transaction'] = array(
 				'Amount' => 0,
 				'Timestamp' => '0000-00-00 00:00:00',
 				'Title' => '',
-				'Description' => '',
+				'Description' => 'We received incorrect data and was unable to process it',
 				'Reporter' => ''
 			);
 		}
@@ -133,6 +136,13 @@ class Main extends CI_Controller {
 		$transactions = $this->users_model->get_transactions();
 		foreach($transactions as &$transaction) {
 			$transaction['Amount'] = $this->users_model->set_transaction_amount($transaction);
+			// get a specific user/friend
+			if($transaction['Borrower'] != $this->session->userdata['user_id']) {
+				$transaction['friend_id'] = $transaction['Borrower'];
+			}
+			else {
+				$transaction['friend_id'] = $transaction['Lender'];
+			}
 		}
 		$this->data['transactions'] = $transactions;
 		
