@@ -7,6 +7,7 @@ $(document).delegate("", "pageinit", function() {
 	$('form[name="add_friend"]').validationEngine('attach', {promptPosition : "bottomLeft", scroll: false});
 	$('form[name="change_password"]').validationEngine('attach', {promptPosition : "bottomLeft", scroll: false});
 	$('form[name="report_tool"]').validationEngine('attach', {promptPosition : "bottomLeft", scroll: false});
+	$('form[name="update_status"]').validationEngine('attach', {promptPosition : "bottomLeft", scroll: false});
 	
 	/*** send email ***/
 	$('form[name="report_tool"]').submit(function() {

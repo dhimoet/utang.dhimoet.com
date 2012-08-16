@@ -14,7 +14,7 @@
 		
 		</ul>
 		
-		<ul data-role='listview' data-inset='true'>
+		<ul data-role='listview' data-inset='true' data-theme='b'>
 			
 			<li>
 				<a href='/settings/notifications/'>Notifications<span class='ui-li-count'><?=$notif;?></span></a>
@@ -24,6 +24,9 @@
 		
 		<ul data-role='listview' data-inset='true'>
 			
+			<li>
+				<a href='/settings/update_status/'>Update Facebook Status</a>
+			</li>
 			<li>
 				<a href='/settings/change_password/'>Change Password</a>
 			</li>
