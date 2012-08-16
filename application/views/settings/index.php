@@ -52,7 +52,7 @@
 			data-layout="box_count" 
 			data-width="450" 
 			data-show-faces="true" 
-			data-action="recommend" 
+			data-action="like" 
 			data-font="verdana">
 		</div>
 	

@@ -14,7 +14,7 @@
 			<script id="user_template" type="text/template">
 				<a href="javascript:void(0)">
 					<div class="list_title"><%= username %></div>
-					<div class="information"><%= email %></div>
+					<div class="information"><%= facebook_username %></div>
 					<div class="image_container">
 						<img src="<%= photo %>" />
 					</div>
