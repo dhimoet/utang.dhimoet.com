@@ -23,7 +23,7 @@
 	
 		<hr />
 		
-		<div class="fb-like" 
+		<div class="fb-like top_20" 
 			data-href="http://utang.dhimoet.com" 
 			data-send="false" 
 			data-layout="box_count" 
