@@ -45,8 +45,9 @@ class Facebook_model extends CI_Model
 				$params = array(
 					'name' => 'UtangApp',
 					'message' => 'I have just signed up for UtangApp. Join me!',
+					'picture' => 'http://utang.dhimoet.com/static/img/utangapp_web_logo.png',
 					'link' => 'http://utang.dhimoet.com',
-					'description' => 'Everyone borrows and lends money all the time. Just enter the number here and let this app calculates and keep the records!', 
+					'description' => 'Everyone borrows and lends money all the time. Just enter the number here and let this app calculate and keep the records!', 
 				);
 				$this->my_fb->make_request($url, $params);
 				
