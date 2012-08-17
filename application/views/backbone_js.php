@@ -177,6 +177,7 @@
 			{ title: "Not found!", content: "The user you are looking for is not registered on our system."},
 			{ title: "Saved!", content: "The transaction has been saved. Your friend will be notified on his/her notification page."},
 			{ title: "Sent!", content: "Your message has been written to your Facebook newsfeed."},
+			{ title: "Deleted!", content: "Your recent transaction has been deleted."},
 		];
 		
 		/*** execute ***/

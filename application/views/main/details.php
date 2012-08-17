@@ -40,7 +40,17 @@
 		<hr />
 		
 		<div class='details_label information'>
-			This transaction was added by: <?=$transaction['Reporter'];?>
+			This transaction was added by: <?=$transaction['reporter_name'];?>
 		</div>
+		
+		<?if($transaction['age'] < 60 && $transaction['Reporter'] == $this->session->userdata['user_id']) {?>
+		<!-- user can delete his transaction that is less than an hour old -->
+		<div class='top_20'>
+			<a href='/main/delete_transaction/<?=$transaction['id'];?>/<?=$friend['id'];?>' 
+					data-role='button' data-theme='z' data-ajax='false'>
+				Delete
+			</a>
+		</div>
+		<?}?>
 		
 	</div><!-- content container -->

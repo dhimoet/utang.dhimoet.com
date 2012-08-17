@@ -17,7 +17,7 @@
 		
 		</ul>
 		
-		<ul data-role='listview' data-inset='true' data-theme='b'>
+		<ul data-role='listview' data-inset='true' <?=($notif)?"data-theme='b'":'';?>>
 			
 			<li>
 				<a href='/settings/notifications/'>Notifications<span class='ui-li-count'><?=$notif;?></span></a>

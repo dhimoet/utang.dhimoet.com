@@ -5,7 +5,7 @@
 			<li class='short_summary'>
 				<?if($notification['Type'] == 'friend_request') {
 					$url = "/settings/friend_request/{$notification['id']}/{$notification['friend']['id']}";
-				} elseif($notification['Type'] == 'added_transaction') {
+				} elseif($notification['Type'] == 'added_transaction' || $notification['Type'] == 'deleted_transaction') {
 					$url = "/main/details/{$notification['TransactionId']}/{$notification['friend']['id']}";
 				} else {
 					$url = 'javascript:void(0)';
@@ -19,6 +19,8 @@
 							has sent you a friend request
 						<?} elseif($notification['Type'] == 'added_transaction') {?>
 							has added a transaction
+						<?} elseif($notification['Type'] == 'deleted_transaction') {?>
+							has deleted his/her recent a transaction
 						<?} elseif($notification['Type'] == 'friend') {?>
 							has accepted your friend request
 						<?} elseif($notification['Type'] == 'rejected') {?>

@@ -168,15 +168,15 @@ class Users_model extends CI_Model
 		}
 	}
 	
-	public function set_notification($to, $type, $status = 'active', $id = 0)
+	public function set_notification($to, $type, $status = 'active', $id = null)
 	{
 		$data = array(
 			'SenderId' => $this->session->userdata['user_id'],
 			'ReceiverId' => $to,
 			'Type' => $type,
-			'Status' => $status
+			'Status' => $status,
 		);
-		if($status == 'active' && $type == 'added_transaction') {
+		if($status == 'active' && ($type == 'added_transaction' || $type == 'deleted_transaction')) {
 			$data['TransactionId'] = $id;
 		}
 		$this->db->insert('notifications', $data);
@@ -223,6 +223,7 @@ class Users_model extends CI_Model
 		$this->db->select_sum('Amount');
 		$this->db->where('Borrower', $this->session->userdata['user_id']);
 		$this->db->where('Lender', $friend_id);
+		$this->db->where('Status', 'active');
 		$query = $this->db->get('transactions');
 		
 		return $query->row()->Amount;
@@ -233,6 +234,7 @@ class Users_model extends CI_Model
 		$this->db->select_sum('Amount');
 		$this->db->where('Lender', $this->session->userdata['user_id']);
 		$this->db->where('Borrower', $friend_id);
+		$this->db->where('Status', 'active');
 		$query = $this->db->get('transactions');
 		
 		return $query->row()->Amount;
@@ -269,6 +271,7 @@ class Users_model extends CI_Model
 	{
 		$this->db->where('Borrower', $borrower);
 		$this->db->where('Lender', $lender);
+		$this->db->where('Status', 'active');
 		$this->db->order_by('Timestamp', 'desc');
 		$query = $this->db->get('transactions', 1);
 		
@@ -289,6 +292,7 @@ class Users_model extends CI_Model
 	{
 		$this->db->like('Borrower', $borrower);
 		$this->db->like('Lender', $lender);
+		$this->db->where('Status', 'active');
 		$this->db->order_by('Timestamp', 'desc');
 		$query = $this->db->get('transactions', 20);
 		
@@ -337,6 +341,16 @@ class Users_model extends CI_Model
 		
 		// set notification
 		$this->set_notification($transaction['user'], 'added_transaction', 'active', $this->db->insert_id());
+	}
+	
+	public function delete_transaction($transaction_id)
+	{
+		$data = array(
+			'Status' => 'deleted'
+		);
+		
+		$this->db->where('id', $transaction_id);
+		$this->db->update('transactions', $data);
 	}
 	
 	public function get_logout_url()

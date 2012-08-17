@@ -102,12 +102,14 @@ class Main extends CI_Controller {
 			$this->data['friend'] = $this->users_model->get_friend($friend_id);
 			
 			if($transaction['Reporter'] == $friend_id) {
-				$transaction['Reporter'] = $this->data['friend']['username'];
+				$transaction['reporter_name'] = $this->data['friend']['username'];
 			}
 			else {
-				$transaction['Reporter'] = 'You';
+				$transaction['reporter_name'] = 'You';
 			}
 			$transaction['Amount'] = $this->users_model->set_transaction_amount($transaction);
+			// calculate the age of this transaction
+			$transaction['age'] = get_age($transaction['Timestamp']);
 			$this->data['transaction'] = $transaction;
 		}
 		else {
@@ -119,15 +121,40 @@ class Main extends CI_Controller {
 				'Timestamp' => '0000-00-00 00:00:00',
 				'Title' => '',
 				'Description' => 'We received incorrect data and were unable to process it',
-				'Reporter' => ''
+				'reporter_name' => '',
+				'age' => 0
 			);
 		}
 		
 		$this->load->view('templates/base_header', $this->head);
 		$this->load->view('templates/nav_header', $this->head);
 		$this->load->view('main/details', $this->data);
+		$this->load->view('templates/overlay_template');
+		$this->load->view('backbone_js', $this->head['title']);
 		$this->load->view('templates/nav_footer');
 		$this->load->view('templates/base_footer');
+	}
+	
+	public function delete_transaction($transaction_id, $friend_id) 
+	{
+		// match the transaction and the owner
+		$condition = array(
+			'id' => $transaction_id,
+		);
+		$query = $this->db->get_where('transactions', $condition);
+
+		if($query->num_rows() === 1 
+				&& $query->row()->Reporter == $this->session->userdata['user_id'] 
+				&& get_age($query->row()->Timestamp) < 60) {
+			$this->users_model->delete_transaction($transaction_id);
+			
+			// create a notification
+			$this->users_model->set_notification($friend_id, 'deleted_transaction', 'active', $transaction_id);
+			redirect('/main/home/?msg=5', 'refresh');
+		}
+		else {
+			redirect('/main/home/?msg=0', 'refresh');
+		}
 	}
 	
 	public function history()
