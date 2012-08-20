@@ -32,23 +32,32 @@ textarea {
 	margin-bottom: 40px;
 }
 
+.content_header {
+	font-size: 14px;
+	font-weight: normal;
+	white-space: normal !important;
+}
+
 .content_header div {
-	font-size: 18px;
+	font-size: 16px;
 	display: inline-block;
 	margin: 10px 0px 32px 0px;
 }
 
 .content_header .amount_total {
+	font-size: 18px;
 	font-weight: bold;
 	float: right;
 	margin: 10px 0px;
 }
 
 .amount_owed {
+	font-size: 14px;
 	color: red;
 }
 
 .amount_owned {
+	font-size: 14px;
 	color: green;
 }
 
@@ -62,8 +71,8 @@ textarea {
 }
 
 .list_title {
-	font-size: 20px;
-	margin-bottom: 8px;
+	font-size: 16px;
+	margin-bottom: 3px;
 }
 
 .list_amount {
@@ -74,6 +83,7 @@ textarea {
 }
 
 .information {
+	font-size: 14px;
 	font-style: italic;
 	font-weight: normal;
 }
@@ -89,7 +99,7 @@ textarea {
 }
 
 .profile_picture {
-	width: 78px;
+	width: 70px;
 	padding: 5px;
 }
 
