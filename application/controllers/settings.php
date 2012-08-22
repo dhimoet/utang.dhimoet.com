@@ -48,7 +48,7 @@ class Settings extends CI_Controller {
 			$id2 = $this->users_model->get_id($this->input->post('email'));
 			$this->users_model->set_relationship($id1, $id2);
 			
-			redirect('/settings/', 'refresh');
+			redirect('/settings/settings/?msg=6', 'refresh');
 		}
 		else {
 			// display an add friend form

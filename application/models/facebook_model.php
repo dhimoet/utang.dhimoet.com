@@ -43,8 +43,7 @@ class Facebook_model extends CI_Model
 				// publish to his wall
 				$url = "https://graph.facebook.com/{$user['user_id']}/feed";
 				$params = array(
-					'name' => 'UtangApp',
-					'message' => 'I have just signed up for UtangApp. Join me!',
+					'name' => 'You are invited to join UtangApp!',
 					'picture' => 'http://utang.dhimoet.com/static/img/utangapp_web_logo.png',
 					'link' => 'http://utang.dhimoet.com',
 					'description' => 'Everyone borrows and lends money all the time. Just enter the number here and let this app calculate and keep the records!', 

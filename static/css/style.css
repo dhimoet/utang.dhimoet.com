@@ -32,23 +32,32 @@ textarea {
 	margin-bottom: 40px;
 }
 
+.content_header {
+	font-size: 14px;
+	font-weight: normal;
+	white-space: normal !important;
+}
+
 .content_header div {
-	font-size: 18px;
+	font-size: 16px;
+	font-weight: bold;
 	display: inline-block;
 	margin: 10px 0px 32px 0px;
 }
 
 .content_header .amount_total {
-	font-weight: bold;
+	font-size: 18px;
 	float: right;
 	margin: 10px 0px;
 }
 
 .amount_owed {
+	font-size: 14px;
 	color: red;
 }
 
 .amount_owned {
+	font-size: 14px;
 	color: green;
 }
 
@@ -62,20 +71,25 @@ textarea {
 }
 
 .list_title {
-	font-size: 20px;
-	margin-bottom: 8px;
+	font-size: 16px;
+	margin-bottom: 3px;
 }
 
 .list_amount {
 	font-weight: normal !important;
 	float: right;
-	margin-top: -36px;
+	margin-top: -28px;
 	margin-right: 5px;
 }
 
 .information {
+	font-size: 14px;
 	font-style: italic;
 	font-weight: normal;
+}
+
+.details_label {
+	margin-bottom: 5px;
 }
 
 .user_container {
@@ -89,7 +103,7 @@ textarea {
 }
 
 .profile_picture {
-	width: 78px;
+	width: 70px;
 	padding: 5px;
 }
 
@@ -172,3 +186,12 @@ textarea {
 	z-index: 2015;
 	width: 150px;
 }
+
+/*** jquery mobile extensions ***/
+.ui-btn-up-z{border:1px solid #787a7c;background:#c61517;font-weight:bold;color:#fff;text-shadow:0 1px 0 #000;background-image:-webkit-linear-gradient(#e18384,#c61517);background-image:-moz-linear-gradient(#e18384,#c61517);background-image:-ms-linear-gradient(#e18384,#c61517);background-image:-o-linear-gradient(#e18384,#c61517);background-image:linear-gradient(#e18384,#c61517)}
+.ui-btn-up-z:visited,.ui-btn-up-z a.ui-link-inherit{color:#222}
+.ui-btn-hover-z{border:1px solid #787a7c;background:#c61517;font-weight:bold;color:#fff;text-shadow:0 1px 0 #000;background-image:-webkit-linear-gradient(#e18e8f,#c62224);background-image:-moz-linear-gradient(#e18e8f,#c62224);background-image:-ms-linear-gradient(#e18e8f,#c62224);background-image:-o-linear-gradient(#e18e8f,#c62224);background-image:linear-gradient(#e18e8f,#c62224)}
+.ui-btn-hover-z:visited,.ui-btn-hover-z:hover,.ui-btn-hover-z a.ui-link-inherit{color:#fff}
+.ui-btn-down-z{border:1px solid #787a7c;background:#c61517;font-weight:bold;color:#fff;text-shadow:0 1px 0 #000;background-image:-webkit-linear-gradient(#e17576,#c60c0e);background-image:-moz-linear-gradient(#e17576,#c60c0e);background-image:-ms-linear-gradient(#e17576,#c60c0e);background-image:-o-linear-gradient(#e17576,#c60c0e);background-image:linear-gradient(#e17576,#c60c0e)}
+.ui-btn-down-z:visited,.ui-btn-down-z:hover,.ui-btn-down-z a.ui-link-inherit{color:#fff}
+.ui-btn-up-z,.ui-btn-hover-z,.ui-btn-down-z{font-family:Helvetica,Arial,sans-serif;text-decoration:none}

@@ -31,6 +31,14 @@
 			</li>
 			
 			<li>
+				You can delete a transaction you have entered within the first hour.
+			</li>
+			
+			<li>
+				Having said the previous point, you can not delete a transaction that is not yours.
+			</li>
+			
+			<li>
 				After you add an icon to your homescreen, sometimes the app keeps asking you to login which results on you are being transferred back to the regular browser. Try to add a new icon after you are successfully logged in using Safari.
 			</li>
 			
