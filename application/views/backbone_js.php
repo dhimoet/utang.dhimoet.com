@@ -111,6 +111,8 @@
 			model: OverlayModel
 		});
 		
+		/*** views ***/
+		
 		var OverlayView = Backbone.View.extend({
 			tagName: "div",
 			template: _.template($('#overlay_template').html()),
@@ -125,8 +127,6 @@
 				this.model.clear();
 			}
 		});
-		
-		/*** views ***/
 		
 		var OverlayWhole = Backbone.View.extend({
 			el: $('#overlay_container'),
