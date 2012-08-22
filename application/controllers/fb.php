@@ -18,7 +18,6 @@ class Fb extends CI_Controller {
 	
 	public function login()
 	{
-		
 		if($this->my_fb->get_user()) {
 			/*** check database for the user ***/
 			$user_profile = $this->my_fb->get_user_profile();
