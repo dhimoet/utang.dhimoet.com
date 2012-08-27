@@ -7,6 +7,12 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
+<script>
+	function login() {
+		self.location = '/fb/login';
+	}
+</script>
+
 <div data-role='page' data-title='login' id='login'>
   
 	<div data-theme='b' data-role='header' data-position='fixed'>
@@ -17,7 +23,7 @@
 		
 		<div class="bottom_40 top_40">
 			
-			<a href='/fb/login/' data-role='button' data-theme='b' data-ajax='false'>Login with Facebook</a>
+			<a href='javascript:void(0)' data-role='button' data-theme='b' data-ajax='false' onclick='login();'>Login with Facebook</a>
 			
 		</div>
 	
