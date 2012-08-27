@@ -6,6 +6,12 @@
 	  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
 	  fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));</script>
+	
+	<script>
+		function logout() {
+			self.location = '<?=$this->users_model->get_logout_url();?>';
+		}
+	</script>
 
 	<div data-role='content' class='centered'>
 		
@@ -42,7 +48,7 @@
 			
 		</ul>
       
-		<a href='<?=$this->users_model->get_logout_url();?>' data-role='button' data-theme='e' data-ajax='false'>
+		<a href='javascript:void(0)' data-role='button' data-theme='e' data-ajax='false' onclick='logout();'>
 			Logout <?=$this->users_model->get_username($this->session->userdata['user_id']);?>
 		</a>
 		
