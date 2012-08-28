@@ -49,7 +49,7 @@
 		</ul>
       
 		<a href='javascript:void(0)' data-role='button' data-theme='e' data-ajax='false' onclick='logout();'>
-			Logout <?=$this->users_model->get_username($this->session->userdata['user_id']);?>
+			Logout <?=$this->users_model->get_username($this->ion_auth->user()->row()->id);?>
 		</a>
 		
 		<div class="fb-like top_20" 

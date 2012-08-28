@@ -44,7 +44,7 @@ class Settings extends CI_Controller {
 		
 		if ($this->form_validation->run() == true) {
 			// store to database
-			$id1 = $this->session->userdata['user_id'];
+			$id1 = $this->ion_auth->user()->row()->id;
 			$id2 = $this->users_model->get_id($this->input->post('email'));
 			$this->users_model->set_relationship($id1, $id2);
 			
@@ -68,7 +68,7 @@ class Settings extends CI_Controller {
 		
 		if ($this->form_validation->run() == true) {
 			// post to facebook
-			$uid = $this->users_model->get_facebook_uid($this->session->userdata['user_id']);
+			$uid = $this->users_model->get_facebook_uid($this->ion_auth->user()->row()->id);
 			$url = "https://graph.facebook.com/{$uid}/feed";
 			$params = array(
 				'message' => $this->input->post('message'),
@@ -135,7 +135,7 @@ class Settings extends CI_Controller {
 	public function respond_request($type, $notification_id, $friend_id)
 	{
 		// change the type on userrelationship table
-		$my_id = $this->session->userdata['user_id'];
+		$my_id = $this->ion_auth->user()->row()->id;
 		$this->users_model->set_relationship($friend_id, $my_id, $type, 'inactive', $notification_id);
 		
 		redirect('/settings/', 'refresh');
@@ -148,8 +148,8 @@ class Settings extends CI_Controller {
 		
 		if ($this->form_validation->run() == true) {
 			$from = array(
-				'name' => $this->session->userdata['username'],
-				'address' => $this->session->userdata['email']
+				'name' => $this->ion_auth->user()->row()->username,
+				'address' => $this->ion_auth->user()->row()->email,
 			);
 			$email = array(
 				'title' => $this->input->post('title'),

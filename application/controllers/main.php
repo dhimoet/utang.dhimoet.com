@@ -144,7 +144,7 @@ class Main extends CI_Controller {
 		$query = $this->db->get_where('transactions', $condition);
 
 		if($query->num_rows() === 1 
-				&& $query->row()->Reporter == $this->session->userdata['user_id'] 
+				&& $query->row()->Reporter == $this->ion_auth->user()->row()->id
 				&& get_age($query->row()->Timestamp) < 60) {
 			$this->users_model->delete_transaction($transaction_id);
 			
@@ -164,7 +164,7 @@ class Main extends CI_Controller {
 		foreach($transactions as &$transaction) {
 			$transaction['Amount'] = $this->users_model->set_transaction_amount($transaction);
 			// get a specific user/friend
-			if($transaction['Borrower'] != $this->session->userdata['user_id']) {
+			if($transaction['Borrower'] != $this->ion_auth->user()->row()->id) {
 				$transaction['friend_id'] = $transaction['Borrower'];
 			}
 			else {

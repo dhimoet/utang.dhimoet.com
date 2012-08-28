@@ -21,7 +21,9 @@ class Email_model extends CI_Model
 	
 	public function send_email(Array $to, Array $from, Array $email) 
 	{
-		$email['body'] = "<div><strong>Title:</strong></div>\n";
+		$email['body'] = "<div><strong>From:</strong></div>\n";
+		$email['body'].= "<div>{$from['name']}</div>\n";
+		$email['body'].= "<div><strong>Title:</strong></div>\n";
 		$email['body'].= "<div>{$email['title']}</div>\n";
 		$email['body'].= "<div><strong>Description:</strong></div>\n";
 		$email['body'].= "<div>{$email['description']}</div>\n";

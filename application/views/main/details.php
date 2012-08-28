@@ -43,7 +43,7 @@
 			This transaction was added by: <?=$transaction['reporter_name'];?>
 		</div>
 		
-		<?if($transaction['age'] < 60 && $transaction['Reporter'] == $this->session->userdata['user_id']) {?>
+		<?if($transaction['age'] < 60 && $transaction['Reporter'] == $this->ion_auth->user()->row()->id) {?>
 		<!-- user can delete his transaction that is less than an hour old -->
 		<div class='top_20'>
 			<a href='/main/delete_transaction/<?=$transaction['id'];?>/<?=$friend['id'];?>' 
