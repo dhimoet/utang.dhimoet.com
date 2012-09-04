@@ -1,12 +1,3 @@
-	<div id="fb-root"></div>
-	<script>(function(d, s, id) {
-	  var js, fjs = d.getElementsByTagName(s)[0];
-	  if (d.getElementById(id)) return;
-	  js = d.createElement(s); js.id = id;
-	  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-	  fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));</script>
-	
 	<script>
 		function logout() {
 			self.location = '<?=$this->users_model->get_logout_url();?>';
@@ -51,14 +42,5 @@
 		<a href='javascript:void(0)' data-role='button' data-theme='e' data-ajax='false' onclick='logout();'>
 			Logout <?=$this->users_model->get_username($this->ion_auth->user()->row()->id);?>
 		</a>
-		
-		<div class="fb-like top_20" 
-			data-href="http://utang.dhimoet.com" 
-			data-send="false" 
-			data-width="450" 
-			data-show-faces="true" 
-			data-action="like" 
-			data-font="verdana">
-		</div>
 	
 	</div>
