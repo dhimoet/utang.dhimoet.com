@@ -24,6 +24,7 @@
 	<script type="text/javascript" src="/static/js/add2home.js"></script>
 	<script type="text/javascript" src="/static/jquery.mobile-1.1.1/jquery.mobile-1.1.1.min.js"></script>
 	<script type="text/javascript" src="/static/js/script.js"></script>
+	<script type="text/javascript" src="/static/js/require.js"></script>
 
 </head>
 <body>

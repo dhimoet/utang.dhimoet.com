@@ -101,6 +101,10 @@ class Facebook_model extends CI_Model
 		if($stored_user['last_name'] != $user['last_name']) {
 			return true;
 		}
+		// compare email
+		if($stored_user['email'] != $user['email']) {
+			return true;
+		}
 		// compare username
 		if($stored_user['username'] != $user['first_name'].' '.$user['last_name']) {
 			return true;
