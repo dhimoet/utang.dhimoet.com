@@ -9,7 +9,7 @@ class Ajax extends CI_Controller {
 	public function get_users() 
 	{
 		$key = $this->input->post('key');
-		$users = $this->users_model->get_not_friends($key);
+		$users = $this->user_model->get_not_friends($key);
 		
 		echo json_encode($users);
 		exit;

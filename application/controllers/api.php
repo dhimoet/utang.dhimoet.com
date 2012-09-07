@@ -16,7 +16,7 @@ class Api extends CI_Controller {
 		}
 		
 		/*** get notification number ***/
-		$this->data['notif'] = $this->users_model->get_notification_number();
+		$this->data['notif'] = $this->notification_model->get_notification_number();
 	}
 	
 	public function index()
@@ -29,8 +29,8 @@ class Api extends CI_Controller {
 	public function friends()
 	{
 		// get friends' basic information (array)
-		$friends = $this->users_model->get_friends();
-		echo json_encode($friends, JSON_FORCE_OBJECT);
+		$friends = $this->user_model->get_friends();
+		echo json_encode($friends);
 		exit();
 	}
 }

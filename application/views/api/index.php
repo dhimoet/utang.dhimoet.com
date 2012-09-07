@@ -1,16 +1,20 @@
+<ul id="friends_list"></ul>
+
 <script>
 	requirejs.config({
 		baseUrl: "/",
 		paths: {
 			jquery: "static/js/jquery-1.8.1.min",
 			underscore: "static/js/underscore-min",
-			backbone: "static/js/backbone-min"
+			backbone: "static/js/backbone-min",
+			text: "static/js/text"
 		},
 		shim: {
 			jquery: {
 				exports: "$"
 			},
 			underscore: {
+				deps: ['text'],
 				exports: "_"
 			},
 			backbone: {
@@ -19,8 +23,8 @@
 			}
 		}
 	});
-	require(['jquery', 'underscore', 'backbone'], 
-	function($, _, Backbone) {
+	require(['jquery', 'underscore', 'backbone', 'text!static/templates/backbone.html'], 
+	function($, _, Backbone, Template) {
 		
 		/**
 		 * collections
@@ -33,16 +37,39 @@
 		 * views
 		 */		
 		var FriendsView = Backbone.View.extend({
+			el: $('#friends_list'),
 			initialize: function() {
-				this.collection = new FriendsCollection();
-				this.collection.fetch();
-				this.render();
+				var that = this;
+				that.collection = new FriendsCollection();
+				that.collection.fetch({
+					success: function() {
+						that.render();
+					}
+				});
 			},
 			render: function() {
 				var that = this;
-				_.each(this.collection.models, function(item) {
-					console.log(item);
+				_.each(that.collection.models, function(items) {
+					//console.log(items);
+					that.renderEach(items);
 				}, this);
+			},
+			renderEach: function(item) {
+				var friendView = new FriendView({
+					model: item
+				});
+				this.$el.append(friendView.render().el);
+			}
+		});
+		
+		var FriendView = Backbone.View.extend({
+			tagName: "li",
+			//template: $('#friends_collection_template').html(),
+			render: function() {
+				var tmpl = _.template(Template);
+				//console.log(this.model.toJSON());
+				this.$el.html(tmpl(this.model.toJSON()));
+				return this;
 			}
 		});
 		

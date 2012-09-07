@@ -1,6 +1,6 @@
 	<script>
 		function logout() {
-			self.location = '<?=$this->users_model->get_logout_url();?>';
+			self.location = '<?=$this->user_model->get_logout_url();?>';
 		}
 	</script>
 
@@ -40,7 +40,7 @@
 		</ul>
       
 		<a href='javascript:void(0)' data-role='button' data-theme='e' data-ajax='false' onclick='logout();'>
-			Logout <?=$this->users_model->get_username($this->ion_auth->user()->row()->id);?>
+			Logout <?=$this->user_model->get_username($this->ion_auth->user()->row()->id);?>
 		</a>
 	
 	</div>

@@ -25,7 +25,7 @@
 			</li>
 			<?}?>
 			<li data-role="list-divider">
-				You are logged in as <?=$this->users_model->get_username($this->ion_auth->user()->row()->id);?>
+				You are logged in as <?=$this->user_model->get_username($this->ion_auth->user()->row()->id);?>
 			</li>
 		</ul>
 		

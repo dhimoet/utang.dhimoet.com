@@ -18,7 +18,7 @@ class Main extends CI_Controller {
 		$this->head['title'] = $title;
 		
 		/*** get notification number ***/
-		$this->data['notif'] = $this->users_model->get_notification_number();
+		$this->data['notif'] = $this->notification_model->get_notification_number();
 	}
 	
 	public function index()
@@ -30,17 +30,17 @@ class Main extends CI_Controller {
 	public function home()
 	{
 		// get friends' basic information (array)
-		$friends = $this->users_model->get_friends();
+		$friends = $this->user_model->get_friends();
 		
 		// get interaction with each friend
 		foreach($friends as &$friend) {
 			// get last interaction
-			$last_interaction = $this->users_model->get_last_interaction($friend['id']);
+			$last_interaction = $this->transaction_model->get_last_interaction($friend['id']);
 			array_shift($last_interaction); 
 			$friend = array_merge($friend, $last_interaction);
 			
 			// get total transaction amount
-			$friend['total'] = $this->users_model->get_amount_total($friend['id']);
+			$friend['total'] = $this->transaction_model->get_amount_total($friend['id']);
 		}
 		$this->data['friends'] = $friends;
 		
@@ -55,16 +55,16 @@ class Main extends CI_Controller {
 	
 	public function summary($friend_id = 0, $total = 0)
 	{
-		if($friend_id && $this->users_model->is_friend($friend_id)) {
+		if($friend_id && $this->userrelationship_model->is_friend($friend_id)) {
 			// get a specific user/friend information
-			$friend = $this->users_model->get_friend($friend_id);
+			$friend = $this->user_model->get_friend($friend_id);
 			$this->data['friend'] = $friend;
 			$this->data['friend']['total'] = $total;
 			
 			// get all transactions from that friend
-			$transactions = $this->users_model->get_transactions($friend_id);
+			$transactions = $this->transaction_model->get_transactions($friend_id);
 			foreach($transactions as &$transaction) {
-				$transaction['Amount'] = $this->users_model->set_transaction_amount($transaction);
+				$transaction['Amount'] = $this->transaction_model->set_transaction_amount($transaction);
 			}
 			$this->data['transactions'] = $transactions;
 		}
@@ -86,7 +86,7 @@ class Main extends CI_Controller {
 	public function details($id = 0, $friend_id = 0)
 	{
 		// get a specific transaction
-		$transaction = $this->users_model->get_transaction($id);
+		$transaction = $this->transaction_model->get_transaction($id);
 		
 		// match the parameters with the entry from database
 		if(!empty($transaction) && ($transaction['Borrower'] == $friend_id || $transaction['Lender'] == $friend_id)) {
@@ -96,10 +96,10 @@ class Main extends CI_Controller {
 			$is_valid = false;
 		}
 		
-		if(!empty($transaction) && $is_valid && $this->users_model->is_friend($friend_id)) {
+		if(!empty($transaction) && $is_valid && $this->userrelationship_model->is_friend($friend_id)) {
 			
 
-			$this->data['friend'] = $this->users_model->get_friend($friend_id);
+			$this->data['friend'] = $this->user_model->get_friend($friend_id);
 			
 			if($transaction['Reporter'] == $friend_id) {
 				$transaction['reporter_name'] = $this->data['friend']['username'];
@@ -107,7 +107,7 @@ class Main extends CI_Controller {
 			else {
 				$transaction['reporter_name'] = 'You';
 			}
-			$transaction['Amount'] = $this->users_model->set_transaction_amount($transaction);
+			$transaction['Amount'] = $this->transaction_model->set_transaction_amount($transaction);
 			// calculate the age of this transaction
 			$transaction['age'] = get_age($transaction['Timestamp']);
 			$this->data['transaction'] = $transaction;
@@ -135,34 +135,12 @@ class Main extends CI_Controller {
 		$this->load->view('templates/base_footer');
 	}
 	
-	public function delete_transaction($transaction_id, $friend_id) 
-	{
-		// match the transaction and the owner
-		$condition = array(
-			'id' => $transaction_id,
-		);
-		$query = $this->db->get_where('transactions', $condition);
-
-		if($query->num_rows() === 1 
-				&& $query->row()->Reporter == $this->ion_auth->user()->row()->id
-				&& get_age($query->row()->Timestamp) < 60) {
-			$this->users_model->delete_transaction($transaction_id);
-			
-			// create a notification
-			$this->users_model->set_notification($friend_id, 'deleted_transaction', 'active', $transaction_id);
-			redirect('/main/home/?msg=5', 'refresh');
-		}
-		else {
-			redirect('/main/home/?msg=0', 'refresh');
-		}
-	}
-	
 	public function history()
 	{
 		// get all transaction related to this user
-		$transactions = $this->users_model->get_transactions();
+		$transactions = $this->transaction_model->get_transactions();
 		foreach($transactions as &$transaction) {
-			$transaction['Amount'] = $this->users_model->set_transaction_amount($transaction);
+			$transaction['Amount'] = $this->transaction_model->set_transaction_amount($transaction);
 			// get a specific user/friend
 			if($transaction['Borrower'] != $this->ion_auth->user()->row()->id) {
 				$transaction['friend_id'] = $transaction['Borrower'];
@@ -189,13 +167,13 @@ class Main extends CI_Controller {
 		if ($this->form_validation->run() == true) {
 			$transaction = $this->input->post('add_transaction');
 			// store to database
-			$this->users_model->save_transaction($transaction);
+			$this->transaction_model->save_transaction($transaction);
 
 			redirect('/main/home/?msg=3', 'refresh');
 		}
 		else {
 			// get a list of friends
-			$this->data['friends'] = $this->users_model->get_friends();
+			$this->data['friends'] = $this->user_model->get_friends();
 		
 			$this->load->view('templates/base_header', $this->head);
 			$this->load->view('templates/nav_header', $this->head);
@@ -204,6 +182,28 @@ class Main extends CI_Controller {
 			$this->load->view('backbone_js', $this->head['title']);
 			$this->load->view('templates/nav_footer');
 			$this->load->view('templates/base_footer');
+		}
+	}
+	
+	public function delete_transaction($transaction_id, $friend_id) 
+	{
+		// match the transaction and the owner
+		$condition = array(
+			'id' => $transaction_id,
+		);
+		$query = $this->db->get_where('transactions', $condition);
+
+		if($query->num_rows() === 1 
+				&& $query->row()->Reporter == $this->ion_auth->user()->row()->id
+				&& get_age($query->row()->Timestamp) < 60) {
+			$this->transaction_model->delete_transaction($transaction_id);
+			
+			// create a notification
+			$this->notification_model->set_notification($friend_id, 'deleted_transaction', 'active', $transaction_id);
+			redirect('/main/home/?msg=5', 'refresh');
+		}
+		else {
+			redirect('/main/home/?msg=0', 'refresh');
 		}
 	}
 }

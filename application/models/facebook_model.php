@@ -130,16 +130,4 @@ class Facebook_model extends CI_Model
 		$this->db->where('facebook_user_id', $user['user_id']);
 		$this->db->update('users', $data);
 	}
-	
-	/*** OLD
-	public function get_user_type($user)
-	{
-		$this->db->select('email');
-		$query = $this->db->get_where('users', array('id' => $this->session->userdata['user_id']));
-		
-		$domain = explode('@', $query->row()->email);
-		
-		return $domain[1];
-	}
-	*/
 }

@@ -18,7 +18,7 @@ class Settings extends CI_Controller {
 		$this->head['title'] = $title;
 		
 		/*** get notification number ***/
-		$this->data['notif'] = $this->users_model->get_notification_number();
+		$this->data['notif'] = $this->notification_model->get_notification_number();
 	}
 	
 	public function index()
@@ -45,8 +45,8 @@ class Settings extends CI_Controller {
 		if ($this->form_validation->run() == true) {
 			// store to database
 			$id1 = $this->ion_auth->user()->row()->id;
-			$id2 = $this->users_model->get_id($this->input->post('email'));
-			$this->users_model->set_relationship($id1, $id2);
+			$id2 = $this->user_model->get_id($this->input->post('email'));
+			$this->userrelationship_model->set_relationship($id1, $id2);
 			
 			redirect('/settings/settings/?msg=6', 'refresh');
 		}
@@ -68,7 +68,7 @@ class Settings extends CI_Controller {
 		
 		if ($this->form_validation->run() == true) {
 			// post to facebook
-			$uid = $this->users_model->get_facebook_uid($this->ion_auth->user()->row()->id);
+			$uid = $this->user_model->get_facebook_uid($this->ion_auth->user()->row()->id);
 			$url = "https://graph.facebook.com/{$uid}/feed";
 			$params = array(
 				'message' => $this->input->post('message'),
@@ -87,25 +87,12 @@ class Settings extends CI_Controller {
 		}
 	}
 	
-	/*** OLD
-	public function change_password()
-	{
-		$this->load->view('templates/base_header', $this->head);
-		$this->load->view('templates/nav_header', $this->head);
-		$this->load->view('settings/change_password', $this->data);
-		$this->load->view('templates/overlay_template');
-		$this->load->view('backbone_js', $this->head['title']);
-		$this->load->view('templates/nav_footer');
-		$this->load->view('templates/base_footer');
-	}
-	*/
-	
 	public function notifications()
 	{
-		$notifications = $this->users_model->get_notifications();
+		$notifications = $this->notification_model->get_notifications();
 		
 		foreach($notifications as &$notification) {
-			$notification['friend'] = $this->users_model->get_friend($notification['SenderId']);
+			$notification['friend'] = $this->user_model->get_friend($notification['SenderId']);
 		}
 		$this->data['notifications'] = $notifications;
 
@@ -115,15 +102,15 @@ class Settings extends CI_Controller {
 		$this->load->view('templates/nav_footer');
 		$this->load->view('templates/base_footer');
 		
-		$this->users_model->clear_notifications();
+		$this->notification_model->clear_notifications();
 	}
 	
 	public function friend_request($id, $user_id)
 	{
 		// get notification details
-		$this->data['notification'] = $this->users_model->get_notification($id);
+		$this->data['notification'] = $this->notification_model->get_notification($id);
 		// get user/friend information
-		$this->data['friend'] = $this->users_model->get_friend($user_id);
+		$this->data['friend'] = $this->user_model->get_friend($user_id);
 		
 		$this->load->view('templates/base_header', $this->head);
 		$this->load->view('templates/nav_header', $this->head);
@@ -136,7 +123,7 @@ class Settings extends CI_Controller {
 	{
 		// change the type on userrelationship table
 		$my_id = $this->ion_auth->user()->row()->id;
-		$this->users_model->set_relationship($friend_id, $my_id, $type, 'inactive', $notification_id);
+		$this->userrelationship_model->set_relationship($friend_id, $my_id, $type, 'inactive', $notification_id);
 		
 		redirect('/settings/', 'refresh');
 	}
