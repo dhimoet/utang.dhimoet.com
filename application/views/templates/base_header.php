@@ -10,7 +10,7 @@
 	<link href="/static/img/utangapp_web_logo.png" rel="image_src"/>
 	<link href="/static/img/utangapp_web_logo.png" sizes="114x114" rel="apple-touch-icon">
 	<link rel="apple-touch-startup-image" media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)"
-		href="/static/img/utangapp_web_image.gif">
+		href="/static/img/utangapp_web_image.png">
       
 	<link rel="stylesheet" type="text/css" href="/static/css/style.css" />
 	<link rel="stylesheet" type="text/css" href="/static/css/validationEngine.jquery.css" />
