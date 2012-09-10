@@ -5,7 +5,10 @@ class Main extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		
+		print_rf($this->ion_auth->logged_in());
+		echo ' ';
+		print_rf($this->my_fb->logged_in());
+		die;
 		/*** check login statuses ***/
 		if (!$this->ion_auth->logged_in() || !$this->my_fb->logged_in())
 		{
