@@ -69,12 +69,11 @@ class Facebook_model extends CI_Model
 			$this->db->select('email');
 			$query = $this->db->get_where('users', array('facebook_user_id' => $user['user_id']));
 			$email = $query->row()->email;
-			
-			//if the login is successful
-			//redirect them back to the home page
+
 			if ($this->ion_auth->login($email, generatePassword($user), true))
 			{ 
 				//if the login is successful
+				$this->facebookuser_model->set();
 				//redirect them back to the home page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
 				redirect($this->config->item('base_url'), 'refresh');

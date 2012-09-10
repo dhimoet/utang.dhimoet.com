@@ -65,6 +65,11 @@ class My_fb {
 		return $this->facebook->getAccessToken();
 	}
 	
+	public function set_access_token($token)
+	{
+		return $this->facebook->setAccessToken($token);
+	}
+	
 	public function get_logout_url()
 	{
 		return $this->logoutUrl;

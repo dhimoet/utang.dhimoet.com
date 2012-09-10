@@ -109,7 +109,14 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('facebook_model', 'user_model', 'notification_model','transaction_model','userrelationship_model', 'email_model');
+$autoload['model'] = array('facebook_model', 
+	'user_model', 
+	'notification_model',
+	'transaction_model',
+	'userrelationship_model', 
+	'facebookuser_model', 
+	'email_model'
+);
 
 
 /* End of file autoload.php */
