@@ -7,20 +7,10 @@ class Settings extends CI_Controller {
 		parent::__construct();
 		
 		/*** check login statuses ***/
-		if (!$this->ion_auth->logged_in())
+		if (!$this->ion_auth->logged_in() || !$this->my_fb->logged_in())
 		{
 			//redirect them to the login page
 			redirect('auth/logout', 'refresh');
-		}
-		if(!$this->my_fb->logged_in())
-		{
-			// get user's session and token
-			$user = $this->facebookuser_model->get();
-			// use the facebook token to log in
-			if(!$user || !$user->token || !$this->my_fb->set_access_token($user->token)) {
-				//redirect them to the login page
-				redirect('auth/logout', 'refresh');
-			}
 		}
 		
 		/*** construct html page ***/
