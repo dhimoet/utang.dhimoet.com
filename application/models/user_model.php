@@ -43,10 +43,11 @@ class User_model extends CI_Model
 	 */
 	public function get_not_friends($key = '')
 	{
+		$me = $this->ion_auth->user()->row()->id;
 		$friends_ids = $this->userrelationship_model->get_friends_ids();		
 		$this->db->select('id, username, email, facebook_username');
 		$this->db->like('username', $key);
-		$this->db->where('id !=', $this->ion_auth->user()->row()->id);
+		$this->db->where('id !=', $me);
 		if(!empty($friends_ids)) {
 			$this->db->where_not_in('id', $friends_ids);
 		}
