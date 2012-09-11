@@ -9,6 +9,8 @@ class Facebookuser_model extends CI_Model
 	
 	public function set()
 	{
+		$this->my_fb->set_extended_access_token();
+		
 		$data = array(
 			'session_id' => $this->session->userdata('session_id'),
 			'user_id' => $this->my_fb->get_user(),
@@ -33,6 +35,7 @@ class Facebookuser_model extends CI_Model
 		}
 		$query = $this->db->get_where('facebook_users', array('session_id' => $session_id));
 		$q = $query->row_array();
+		//print_rf($q); die;
 		if(empty($q)) {
 			return false;
 		}

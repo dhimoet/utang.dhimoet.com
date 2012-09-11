@@ -6,6 +6,8 @@ class Fb extends CI_Controller {
 	{
 		parent::__construct();
 		
+		$this->load->library('my_fb');
+		
 		/*** construct html page ***/
 		$title = ucwords(str_replace('_', ' ',$this->router->fetch_method()));
 		$this->head['title'] = $title;

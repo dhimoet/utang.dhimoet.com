@@ -2,13 +2,18 @@
 
 class My_fb {
 
-	public function __construct()
+	public function __construct($access_token = array())
 	{
 		$this->facebook = facebookInit();
+		//print_rf($access_token);
+		// Use the provided token if exists
+		if(!empty($access_token)) {
+			$this->facebook->setAccessToken($access_token[0]);
+		}
 		
 		// Get User ID
-		$user = $this->facebook->getUser();
-		$this->user = $user;
+		$this->user = $this->facebook->getUser();
+		
 		if ($this->user) {
 			try {
 				// Proceed knowing you have a logged in user who's authenticated.
@@ -68,6 +73,11 @@ class My_fb {
 	public function set_access_token($token)
 	{
 		return $this->facebook->setAccessToken($token);
+	}
+	
+	public function set_extended_access_token()
+	{
+		$this->facebook->setExtendedAccessToken();
 	}
 	
 	public function get_logout_url()
