@@ -1,3 +1,9 @@
+	<script>
+		function delete_transaction() {
+			self.location = "/main/delete_transaction/<?=$transaction['id'];?>/<?=$friend['id'];?>";
+		}
+	</script>
+	
 	<div data-role='content'>
 		
 		<div class='details_label'>Transaction With:</div>
@@ -46,8 +52,7 @@
 		<?if($transaction['age'] < 60 && $transaction['Reporter'] == $this->ion_auth->user()->row()->id) {?>
 		<!-- user can delete his transaction that is less than an hour old -->
 		<div class='top_20'>
-			<a href='/main/delete_transaction/<?=$transaction['id'];?>/<?=$friend['id'];?>' 
-					data-role='button' data-theme='z' data-ajax='false'>
+			<a href='javascript:void(0)' data-role='button' data-theme='z' data-ajax='false' onclick='delete_transaction();'>
 				Delete
 			</a>
 		</div>
