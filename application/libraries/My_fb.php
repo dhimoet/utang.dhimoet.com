@@ -2,13 +2,17 @@
 
 class My_fb {
 
-	public function __construct($access_token = array())
+	public function __construct($config = array())
 	{
 		$this->facebook = facebookInit();
-		//print_rf($access_token);
+		$this->initialize($config);
+	}
+	
+	public function initialize($config = array())
+	{
 		// Use the provided token if exists
-		if(!empty($access_token)) {
-			$this->facebook->setAccessToken($access_token[0]);
+		if(!empty($config)) {
+			$this->facebook->setAccessToken($config['access_token']);
 		}
 		
 		// Get User ID

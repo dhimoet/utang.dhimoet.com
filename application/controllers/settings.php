@@ -12,19 +12,19 @@ class Settings extends CI_Controller {
 			//redirect them to the login page
 			redirect('auth/logout', 'refresh');
 		}
-		// get user's session and token
-		$fu = $this->facebookuser_model->get();
-		if($fu && $fu->token) {
-			$access_token = array($fu->token);
-		}
-		else {
-			$access_token = array();
-		}
-		$this->load->library('my_fb', $access_token);
+		
 		if(!$this->my_fb->logged_in())
 		{
-			//redirect them to the login page
-			redirect('auth/logout', 'refresh');
+			// get user's session and token
+			$fu = $this->facebookuser_model->get();
+			if($fu && $fu->token) {
+				$config = array('access_token' => $fu->token);
+				$this->my_fb->initialize($config);
+			}
+			else {
+				//redirect them to the login page
+				redirect('auth/logout', 'refresh');
+			}
 		}
 		
 		/*** construct html page ***/
