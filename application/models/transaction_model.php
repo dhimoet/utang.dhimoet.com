@@ -118,8 +118,7 @@ class Transaction_model extends CI_Model
 			$borrower = $my_id;
 			$lender = $transaction['user'];
 		}
-		
-		// store to database
+
 		$data = array(
 			'Borrower' => $borrower,
 			'Lender' => $lender,
@@ -128,10 +127,27 @@ class Transaction_model extends CI_Model
 			'Description' => $transaction['description'],
 			'Reporter' => $my_id
 		);
+		
+		// get the last transaction by this user
+		$last = $this->get_last_interaction($transaction['user']);
+		// check if the last transaction is similar within the last 2 minutes
+		if(get_age($last['Timestamp']) < 2) {
+			if($last['Borrower'] == $data['Borrower']
+					&& $last['Lender'] == $data['Lender']
+					&& $last['Amount'] == $data['Amount']
+					&& $last['Title'] == $data['Title']
+					&& $last['Description'] == $data['Description']
+					&& $last['Reporter'] == $data['Reporter']) {
+				return false;
+			}
+		}
+		// store to database
 		$this->db->insert('transactions', $data);
 		
 		// set notification
 		$this->notification_model->set_notification($transaction['user'], 'added_transaction', 'active', $this->db->insert_id());
+		
+		return true;
 	}
 	
 	public function delete_transaction($transaction_id)

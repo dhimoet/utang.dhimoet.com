@@ -178,6 +178,7 @@
 			{ title: "Sent!", content: "Your message has been written to your Facebook newsfeed."},
 			{ title: "Deleted!", content: "Your recent transaction has been deleted."},
 			{ title: "Sent!", content: "Your friend request has been sent. Please notify your friend to approve it."},
+			{ title: "Error!", content: "It appeared you entered the same input more than once. Please make sure only the first input was stored."},
 		];
 		
 		/*** execute ***/

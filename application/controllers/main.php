@@ -177,9 +177,12 @@ class Main extends CI_Controller {
 		if ($this->form_validation->run() == true) {
 			$transaction = $this->input->post('add_transaction');
 			// store to database
-			$this->transaction_model->save_transaction($transaction);
-
-			redirect('/main/home/?msg=3', 'refresh');
+			if($this->transaction_model->save_transaction($transaction)) {
+				redirect('/main/home/?msg=3', 'refresh');
+			}
+			else {
+				redirect('/main/home/?msg=7', 'refresh');
+			}
 		}
 		else {
 			// get a list of friends
