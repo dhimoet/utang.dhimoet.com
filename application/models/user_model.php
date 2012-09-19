@@ -24,6 +24,7 @@ class User_model extends CI_Model
 				
 		// get friends information
 		$this->db->select('id, username, email, facebook_username');
+		$this->db->like('username', $key);
 		$this->db->where_in('id', $friends_ids);
 		$query = $this->db->get('users');
 		
@@ -82,6 +83,92 @@ class User_model extends CI_Model
 		}
 		else {
 			return '/auth/logout/';
+		}
+	}
+	
+	/****************** NEW MODELS BELOW ******************/
+	
+	/**
+	 * get a user's public information
+	 *
+	 * @access	public
+	 * @param	int
+	 * @return	object
+	 */
+	public function get_user($id)
+	{
+		$this->db->select('id, username, email, first_name, last_name, phone, facebook_user_id, facebook_username');
+		$query = $this->db->get_where('users', array('id' => $id));
+		
+		return $query->row();
+	}
+	
+	/**
+	 * get a user's id
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	string
+	 */
+	public function get_user_id($email)
+	{
+		$this->db->select('id');
+		$query = $this->db->get_where('users', array('email' => $email));
+
+		return $query->row()->id;
+	}
+	
+	/**
+	 * get all users' public information
+	 *
+	 * @access	public
+	 * @param	array
+	 * @return	object
+	 */
+	public function get_users($identity = array())
+	{
+		$this->db->select('id, username, email, first_name, last_name, phone, facebook_user_id, facebook_username');
+		if(!empty($identity['id'])) {
+			$this->db->like('id', $identity['id']);
+		}
+		if(!empty($identity['username'])) {
+			$this->db->or_like('username', $identity['username']);
+		}
+		if(!empty($identity['email'])) {
+			$this->db->or_like('email', $identity['email']);
+		}
+		if(!empty($identity['first_name'])) {
+			$this->db->or_like('first_name', $identity['first_name']);
+		}
+		if(!empty($identity['last_name'])) {
+			$this->db->or_like('last_name', $identity['last_name']);
+		}
+		if(!empty($identity['phone'])) {
+			$this->db->or_like('phone', $identity['phone']);
+		}
+		if(!empty($identity['facebook_user_id'])) {
+			$this->db->or_like('facebook_user_id', $identity['facebook_user_id']);
+		}
+		if(!empty($identity['facebook_username'])) {
+			$this->db->or_like('facebook_username', $identity['facebook_username']);
+		}
+		$query = $this->db->get('users');
+		
+		return $query->result();
+	}
+	
+	/**
+	 * set a user's information
+	 *
+	 * @access	public
+	 * @param	array
+	 * @return	string
+	 */
+	public function set_user($identity)
+	{
+		// check user id
+		if(!empty($identity['id'])) {
+			
 		}
 	}
 }

@@ -1,37 +1,73 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Api extends CI_Controller {
+require APPPATH.'/libraries/REST_Controller.php';
 
-	public function __construct()
-	{
-		parent::__construct();
-		
-		/*** check login status ***/
-		if (!$this->ion_auth->logged_in() || !$this->my_fb->logged_in())
-		{
-			// give error message
-            header('HTTP/1.0 401 Unauthorized');
-            echo("You are not authorized to view this page.");
-            exit();
-		}
-		
-		/*** get notification number ***/
-		$this->data['notif'] = $this->notification_model->get_notification_number();
-	}
-	
-	public function index()
+class Api extends REST_Controller {
+
+	public function index_get()
 	{	
 		$this->load->view('templates/api_header');
-		$this->load->view('api/index', $this->data);
+		$this->load->view('api/index');
 		$this->load->view('templates/base_footer');
 	}
 	
-	public function friends()
+	public function user_get()
 	{
-		// get friends' basic information (array)
-		$friends = $this->user_model->get_friends();
-		echo json_encode($friends);
-		exit();
+		// get user's basic information
+		$user = $this->user_model->get_user($this->get('id'));
+		if(!empty($user)) {
+			$this->response($user, 200);
+		}
+		else {
+			$this->response(array('error' => "Couldn't find any user!"), 404);
+		}
+	}
+	
+	public function user_id_get()
+	{
+		// get user's basic information
+		$user = $this->user_model->get_user_id($this->get('email'));
+		if(!empty($user)) {
+			$this->response($user, 200);
+		}
+		else {
+			$this->response(array('error' => "Couldn't find any user!"), 404);
+		}
+	}
+	
+	public function users_get()
+	{
+		$identity = array(
+			'id' 				=> $this->get('id'),
+			'username' 			=> $this->get('username'),
+			'email' 			=> $this->get('email'),
+			'first_name' 		=> $this->get('first_name'),
+			'last_name' 		=> $this->get('last_name'),
+			'phone' 			=> $this->get('phone'),
+			'facebook_user_id' 	=> $this->get('facebook_user_id'),
+			'facebook_username' => $this->get('facebook_username'),
+		);
+		// get user's basic information
+		$user = $this->user_model->get_users($identity);
+		if(!empty($user)) {
+			$this->response($user, 200);
+		}
+		else {
+			$this->response(array('error' => "Couldn't find any user!"), 404);
+		}
+	}
+	
+	public function friends_get()
+	{
+		// get friends' basic information
+		$friends = $this->user_model->get_friends($this->get('key'));
+		
+		if(!empty($friends)) {
+			$this->response($friends, 200);
+		}
+		else {
+			$this->response(array('error' => "Couldn't find any friends!"), 404);
+		}
 	}
 }
 
