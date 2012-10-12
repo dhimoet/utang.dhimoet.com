@@ -70,16 +70,14 @@ class My_fb {
 	}
 	
 	public function get_access_token()
-	{
-		$token = $this->facebook->getAccessToken();
-		$this->facebook->setExtendedAccessToken();
-		
-		return $token;
+	{		
+		return $this->facebook->getAccessToken();
 	}
 	
 	public function set_access_token($token)
 	{
-		return $this->facebook->setAccessToken($token);
+		$this->facebook->setAccessToken($token);
+		$this->facebook->setExtendedAccessToken();
 	}
 	
 	public function set_extended_access_token()
