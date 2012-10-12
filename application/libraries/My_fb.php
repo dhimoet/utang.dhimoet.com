@@ -71,7 +71,10 @@ class My_fb {
 	
 	public function get_access_token()
 	{
-		return $this->facebook->getAccessToken();
+		$token = $this->facebook->getAccessToken();
+		$this->facebook->setExtendedAccessToken();
+		
+		return $token;
 	}
 	
 	public function set_access_token($token)

@@ -36,12 +36,17 @@
 				"click a" : "updateInputText"
 			},
 			initialize: function() {
+				console.log('in initialize');
+				console.log(this);
 				this.model.bind('change', this.render, this);
 				this.model.bind('destroy', this.remove, this);
 			},
 			render: function() {
+				console.log('in render');
+				console.log(this);
 				var user = this.model.toJSON();
 				var username = user.facebook_username;
+				console.log(user);
 				this.$el.html(this.template(user));
 				this.model.set('photo', 'http://graph.facebook.com/'+username+'/picture');
 				return this;

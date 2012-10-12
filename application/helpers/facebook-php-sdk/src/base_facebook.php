@@ -384,6 +384,8 @@ abstract class BaseFacebook
     $this->setPersistentData(
       'access_token', $response_params['access_token']
     );
+    // hack got from somebody on stackoverflow
+	$this->accessToken = $response_params['access_token'];
   }
 
   /**
