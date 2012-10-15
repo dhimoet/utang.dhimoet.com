@@ -54,10 +54,15 @@ class Fb extends CI_Controller {
 			/*** log in the user ***/
 			$this->facebook_model->login($user);
 		}
-		elseif($cookie) {
+		elseif($cookie && json_decode($cookie)) {
 			// extract from cookie
 			$user = json_decode($cookie);
 			$this->my_fb->set_access_token($user[0]);
+			// check if the token is valid
+			if(!$this->my_fb->get_user()) {
+				// token is invalid
+				delete_cookie('utangapp_login_cookie');
+			}
 			redirect('/fb/login', 'refresh');
 		}
 		else {
