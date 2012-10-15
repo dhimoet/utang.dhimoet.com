@@ -41,18 +41,23 @@ class Fb extends CI_Controller {
 				}
 			}
 			/*** create cookie ***/
+			$fu = $this->facebookuser_model->get($this->my_fb->get_user());
+			$cookie_value = json_encode(array(
+				$fu->token,
+				$this->my_fb->get_user()
+			));
 			$this->input->set_cookie(array(
-				'name' => 'utangapp_login_cookie',
-				'value' => $this->my_fb->get_user(),
-				'expire' => '5184000'
+				'name' 		=> 'utangapp_login_cookie',
+				'value' 	=> $cookie_value,
+				'expire' 	=> '5184000'
 			));
 			/*** log in the user ***/
 			$this->facebook_model->login($user);
 		}
 		elseif($cookie) {
-			// get facebook user data
-			$fu = $this->facebookuser_model->get($cookie);
-			$this->my_fb->set_access_token($fu->token);
+			// extract from cookie
+			$user = json_decode($cookie);
+			$this->my_fb->set_access_token($user[0]);
 			redirect('/fb/login', 'refresh');
 		}
 		else {
