@@ -18,6 +18,7 @@ class Fb extends CI_Controller {
 	
 	public function login()
 	{
+		$cookie = $this->input->cookie('utangapp_login_cookie');
 		if($this->my_fb->get_user()) {
 			/*** check database for the user ***/
 			$user_profile = $this->my_fb->get_user_profile();
@@ -39,13 +40,54 @@ class Fb extends CI_Controller {
 					$this->facebook_model->update_user($user);
 				}
 			}
-
+			/*** create cookie ***/
+			$this->input->set_cookie(array(
+				'name' => 'utangapp_login_cookie',
+				'value' => $this->my_fb->get_user(),
+				'expire' => '5184000'
+			));
 			/*** log in the user ***/
 			$this->facebook_model->login($user);
+		}
+		elseif($cookie) {
+			// get facebook user data
+			$fu = $this->facebookuser_model->get($cookie);
+			$this->my_fb->set_access_token($fu->token);
+			redirect('/fb/login', 'refresh');
 		}
 		else {
 			/*** log in user to facebook ***/
 			redirect($this->my_fb->get_login_url());
+		}
+	}
+	
+	public function loginx()
+	{
+		// check if user logged into the website
+		if($this->ion_auth->logged_in()) {
+			// user is logged in
+			// get user
+			$user = $this->ion_auth->user()->row();
+			// get user's facebook uid
+			$uid = $this->user_model->get_facebook_uid($user->id);
+			// get facebook user data
+			$fb = $this->facebookuser_model->get($uid);
+			// use access token
+			$this->my_fb->set_access_token($fb['token']);
+			// check if token is valid
+			if($this->my_fb->logged_in()) {
+				// token is valid
+				// login the user
+				$this->facebook_model->login($user);
+			}
+			else {
+				// token is invalid
+				redirect($this->my_fb->get_login_url());
+			}
+		}
+		else {
+			// user is not logged in
+			
 		}
 	}
 	

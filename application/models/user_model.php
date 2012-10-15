@@ -11,8 +11,8 @@ class User_model extends CI_Model
 	{
 		$this->db->select('facebook_user_id');
 		$query = $this->db->get_where('users', array('id' => $id));
-		
-		return $query->row()->facebook_user_id;
+		$row = $query->row();
+		return $row->facebook_user_id;
 	}
 	
 	/**

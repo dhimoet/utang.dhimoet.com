@@ -15,16 +15,7 @@ class Main extends CI_Controller {
 		
 		if(!$this->my_fb->logged_in())
 		{
-			// get user's session and token
-			$fu = $this->facebookuser_model->get();
-			if($fu && $fu->token) {
-				$config = array('access_token' => $fu->token);
-				$this->my_fb->initialize($config);
-			}
-			else {
-				//redirect them to the login page
-				redirect('auth/logout', 'refresh');
-			}
+			redirect('/fb/login', 'refresh');
 		}
 		
 		/*** construct html page ***/
