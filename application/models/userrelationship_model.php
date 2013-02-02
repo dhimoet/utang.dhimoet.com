@@ -87,18 +87,15 @@ class Userrelationship_model extends CI_Model
 				$this->db->where(array('UserID1' => $id1, 'UserID2' => $id2));
 				$this->db->update('userrelationships', $data);
 			}
-			
-			// create a notification
-			if($this->ion_auth->user()->row()->id == $id1) {
-				$to = $id2;
-			}
-			else {
-				$to = $id1;
-			}
-			$this->notification_model->set_notification($to, $type, $status, $notification_id);
+		}
+		// create a notification - we want to receive
+		// a notification even for multiple requests
+		if($this->ion_auth->user()->row()->id == $id1) {
+			$to = $id2;
 		}
 		else {
-			// error message
+			$to = $id1;
 		}
+		$this->notification_model->set_notification($to, $type, $status, $notification_id);
 	}
 }
